@@ -1,0 +1,32 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.8.0",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.6",
+    "pg": "^8.6.0"
+  },
+  "devDependencies": {
+    "jest": "^27.0.4",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
+  },
+  "scripts": {
+    "start-dev": "nodemon src/server.js --ignore __tests__",
+    "recreate_db": "npx knex migrate:rollback --all && npx knex migrate:latest",
+    "seed_db": "npx knex seed:run",
+    "pretest": "NODE_MODE=test npm run recreate_db && NODE_MODE=test npm run seed_db",
+    "test": "NODE_MODE=test jest --forceExit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

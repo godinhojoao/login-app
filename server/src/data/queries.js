@@ -30,7 +30,7 @@ module.exports = (tableName) => {
         async findByEmail(options) {
             try {
                 const result = await knex.select().from(this.tableName).where('email', options.email);
-                if (result.length < 1) throw createError(404, 'Resultado não encontrado');
+                if (result.length < 1) throw createError(401, "Email ou senha incorretos.");
                 return result;
             } catch (err) {
                 throw err;

@@ -34,7 +34,7 @@ class User {
     async findByEmail(email) {
         const validatedEmail = userSchema.validate({ email });
 
-        if (validatedEmail.error) throw createHttpError(400, validatedName.error.message);
+        if (validatedEmail.error) throw createHttpError(400, validatedEmail.error.message);
 
         try {
             const user = await db.findByEmail({ email: validatedEmail.value.email });

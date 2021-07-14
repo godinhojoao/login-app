@@ -24,3 +24,5 @@
 - ReactJS
 
 # Para rodar o server entre no readme.md da pasta /server e siga os passos
+
+# Para rodar o client entre no readme.md da pasta /client e siga os passos

@@ -5,8 +5,7 @@ const server = axios.create({
   timeout: 10000
 });
 
-
-class Api {
+class UsersApi {
   async getUsers() {
     const response = await server.get('/users');
     return response.data;
@@ -30,6 +29,7 @@ class Api {
     }
   };
 
+  // user authentication route
   async login({ email, password }) {
     try {
       const response = await server.post('/users/login', { email, password });
@@ -42,7 +42,7 @@ class Api {
   // private routes:
   async updateUser(id, user, token) {
     try {
-      const response = await server.put(`/users/${id}`, user, token);
+      const response = await server.put(`/users/${id}`, user, { headers: { "Authorization": `Bearer ${token}` } });
       return response.data;
     } catch (err) {
       return { error: { status: err.response.status, message: err.response.data.error } };
@@ -51,7 +51,7 @@ class Api {
 
   async deleteUser(id, token) {
     try {
-      const response = await server.delete(`/users/${id}`, null, token);
+      const response = await server.delete(`/users/${id}`, { headers: { "Authorization": `Bearer ${token}` } });
       return response.data;
     } catch (err) {
       return { error: { status: err.response.status, message: err.response.data.error } };
@@ -60,7 +60,7 @@ class Api {
 
   async getDashboard(token) {
     try {
-      const response = await server.get('/dashboard', null, token);
+      const response = await server.get('/dashboard', { headers: { "Authorization": `Bearer ${token}` } });
       return response.data;
     } catch (err) {
       return { error: { status: err.response.status, message: err.response.data.error } };
@@ -68,4 +68,6 @@ class Api {
   };
 };
 
-export default new Api();
+const Api = new UsersApi();
+
+export { Api, server };

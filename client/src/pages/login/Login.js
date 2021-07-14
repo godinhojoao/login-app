@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 
-import Api from './../../Api';
+import { Context } from './../../context/AuthContext';
+
 import './Login.css';
 
-async function handleLogin({ email, password }) {
-  const data = await Api.login({ email, password });
-
-  if (data.error) {
-    return { error: data.error };
-  }
-  return data;
-};
-
 function Login() {
+  const history = useHistory();
+  const { isAuthenticated, handleLogin } = useContext(Context);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/dashboard');
+    }
+  }, [history, isAuthenticated]);
 
   function handleChangeEmail(event) {
     const currentEmail = event.target.value;
@@ -35,11 +36,8 @@ function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const data = await handleLogin({ email, password });
-    if (data.error) return alert(data.error.message);
-
-    const { token } = data;
-    console.log(token); // pegar esse token e enviar pra /dashboard pra logar no app
+    await handleLogin({ email, password });
+    history.push('/dashboard');
   };
 
   return (

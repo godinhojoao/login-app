@@ -1,17 +1,16 @@
 import React, { useContext } from 'react';
-import { useHistory } from "react-router-dom";
 
 import { Context } from './../../context/AuthContext';
 
+import './Dashboard.scss';
+
 function Dashboard() {
-  const history = useHistory();
   const { handleLogout } = useContext(Context);
 
   function handleSubmit(event) {
     event.preventDefault();
 
     handleLogout();
-    history.push('/');
   };
 
   return (

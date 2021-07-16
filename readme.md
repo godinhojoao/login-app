@@ -22,7 +22,6 @@
 
 # O que o projeto usa no front-end ?
 - ReactJS
-
-# Para rodar o server entre no readme.md da pasta /server e siga os passos
-
-# Para rodar o client entre no readme.md da pasta /client e siga os passos
+# Primeiro rode o server e depois o client
+ - Para rodar o server entre no readme.md da pasta /server e siga os passos
+ - Para rodar o client entre no readme.md da pasta /client e siga os passos

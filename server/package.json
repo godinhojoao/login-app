@@ -1,8 +1,8 @@
 {
-  "name": "nodejs",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",

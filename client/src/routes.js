@@ -3,8 +3,9 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import { Context } from './context/AuthContext';
 
-import Login from './pages/login/Login';
-import Dashboard from './pages/dashboard/Dashboard';
+import { Login } from './pages/login/Login';
+import { Register } from './pages/register/Register';
+import { Dashboard } from './pages/dashboard/Dashboard';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { isLoading, isAuthenticated } = useContext(Context);
@@ -25,6 +26,7 @@ const Routes = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/login" component={() => <Login />} />
+        <Route exact path="/register" component={() => <Register />} />
         <PrivateRoute exact path="/dashboard" component={() => <Dashboard />} />
         <Route component={() => <Redirect to={{ pathname: '/login' }} />} />
       </Switch>

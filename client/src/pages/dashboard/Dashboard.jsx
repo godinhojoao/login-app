@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Context } from './../../context/AuthContext';
+import { Context } from '../../context/AuthContext';
 
 import './Dashboard.scss';
 
@@ -21,4 +21,4 @@ function Dashboard() {
   );
 };
 
-export default Dashboard;
+export { Dashboard };

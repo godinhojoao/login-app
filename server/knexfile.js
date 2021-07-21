@@ -11,7 +11,13 @@ module.exports = {
       database: process.env.DATABASE,
       user: process.env.DATABASE_USER,
       password: process.env.PASSWORD,
-      port: process.env.PORT
+      port: process.env.PORT,
+      pool: {
+        min: 1,
+        max: 5,
+        acquireTimeoutMillis: 60000,
+        idleTimeoutMillis: 600000,
+      }
     },
     migrations: {
       tableName: 'knex_migrations',

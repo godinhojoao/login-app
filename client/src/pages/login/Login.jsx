@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 
-import { Context } from '../../context/AuthContext';
+import { Context } from './../../context/AuthContext';
 import schema from './loginSchema';
 import Form from './../components/Form/Form';
 
@@ -18,7 +18,11 @@ function Login() {
   }, [history, isAuthenticated]);
 
   async function onSubmit(values) {
-    await handleLogin(values);
+    try {
+      await handleLogin(values);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const valuesObj = {
@@ -34,9 +38,15 @@ function Login() {
       password: "password"
     }
   };
-  const loginForm = Form({ schema, onSubmit, valuesObj });
 
-  return loginForm;
+  return (
+    <Form
+      schema={schema}
+      onSubmit={onSubmit}
+      valuesObj={valuesObj}
+      buttonText="Entrar"
+      loginForm={true} />
+  );
 };
 
 export { Login };

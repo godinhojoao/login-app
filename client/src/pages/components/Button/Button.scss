@@ -1,0 +1,22 @@
+@import './../../../styles/utilities';
+
+button {
+  background-color: #4343db;
+  border: transparent;
+  border-radius: px-to-rem(5);
+  color: white;
+  font-size: px-to-rem(16);
+  font-weight: bold;
+  height: px-to-rem(45);
+  margin-bottom: px-to-rem(10);
+
+  &:hover {
+    background-color: #04047a;
+    cursor: pointer;
+  }
+
+  &.disabled {
+    background-color: #0000001f;
+    color: #8b8b8b;
+  }
+}

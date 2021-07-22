@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import { Context } from '../../context/AuthContext';
+import { Button } from '../components/Button/Button';
 
 import './Dashboard.scss';
 
@@ -16,7 +17,7 @@ function Dashboard() {
   return (
     <form onSubmit={handleSubmit}>
       <h1>Entrou autenticado, boa!!</h1>
-      <button>Sair</button>
+      <Button buttonText="Sair"/>
     </form>
   );
 };

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
+import { useHistory } from "react-router-dom";
+
+import { Button } from './../Button/Button';
 
 import './Form.scss';
 
-function CustomForm({ schema, onSubmit, valuesObj }) {
+function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
+  const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
   const fields = Object.keys(valuesObj.initialValues);
 
@@ -13,7 +17,7 @@ function CustomForm({ schema, onSubmit, valuesObj }) {
         validationSchema={schema}
         onSubmit={onSubmit}
         initialValues={valuesObj.initialValues} >
-        {({ values, errors, touched, isValid }) => {
+        {({ errors, touched, isValid }) => {
           return (
             <Form className="login-container">
               {
@@ -46,7 +50,14 @@ function CustomForm({ schema, onSubmit, valuesObj }) {
                   );
                 })
               }
-              <button type="submit" disabled={!isValid} className={!isValid ? 'disabled' : ''}>Enviar</button>
+              {loginForm ?
+                <>
+                  <Button buttonText="Entrar" disabled={!isValid} className={!isValid ? 'disabled' : ''} />
+                  <Button buttonText="Registrar" callbackFunction={() => history.push('/register')} />
+                </>
+                :
+                <Button buttonText="Registrar" disabled={!isValid} className={!isValid ? 'disabled' : ''} />
+              }
             </Form>
           );
         }}

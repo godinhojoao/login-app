@@ -19,6 +19,17 @@
 
 *** É importante lembrar que você precisa ter um usuário no postgreSQL com esse nome e senha além de ter também um database com esse nome ***
 
+4 - Rodando as migrations:
+- `npm run recreate_db`
+
+5 - Para popular o banco de dados:
+- `seed_db`
+
+6 - Para rodar o projeto após todos passos:
+`npm run start-dev`
+
+**Sempre relembre de utilizar `nvm use` antes de rodar o projeto outras vezes**
+
 # Para rodar os testes:
 
 1 - Crie um arquivo `.env.test` contendo as seguintes informações:

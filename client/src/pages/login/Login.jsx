@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 import { Context } from './../../context/AuthContext';
 import schema from './loginSchema';
@@ -9,6 +10,7 @@ import './Login.scss';
 
 function Login() {
   const history = useHistory();
+  const alert = useAlert();
   const { isAuthenticated, handleLogin } = useContext(Context);
 
   useEffect(() => {
@@ -19,8 +21,9 @@ function Login() {
 
   async function onSubmit(values) {
     try {
-      await handleLogin(values);
+      await handleLogin({ ...values, alert });
     } catch (error) {
+      alert.error("Servidor desligado!");
       console.log(error);
     }
   };

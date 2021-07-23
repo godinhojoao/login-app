@@ -52,11 +52,22 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
               }
               {loginForm ?
                 <>
-                  <Button buttonText="Entrar" disabled={!isValid} className={!isValid ? 'disabled' : ''} />
-                  <Button buttonText="Registrar" callbackFunction={() => history.push('/register')} />
+                  <Button
+                    buttonText="Entrar"
+                    disabled={!isValid}
+                    className={!isValid ? 'disabled' : ''} />
+                  <Button
+                    buttonText="Registrar"
+                    callbackFunction={(event) => {
+                      event.preventDefault();
+                      history.push('/register')
+                    }} />
                 </>
                 :
-                <Button buttonText="Registrar" disabled={!isValid} className={!isValid ? 'disabled' : ''} />
+                <Button
+                  buttonText="Registrar"
+                  disabled={!isValid}
+                  className={!isValid ? 'disabled' : ''} />
               }
             </Form>
           );

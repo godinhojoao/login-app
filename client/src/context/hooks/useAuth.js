@@ -27,7 +27,7 @@ export function useAuth() {
     setIsLoading(false);
   }, []);
 
-  async function handleLogin({ email, password }) {
+  async function handleLogin({ email, password, alert }) {
     setIsLoading(true);
 
     const data = await Api.login({ email, password });
@@ -35,7 +35,7 @@ export function useAuth() {
 
     if (error) {
       setIsLoading(false);
-      return alert(error.message);
+      return alert.error(error.message);
     }
 
     if (token && user) {
@@ -59,6 +59,7 @@ export function useAuth() {
         localStorageManager.addItems(items);
       }
       setIsLoading(false);
+      alert.success('Login realizado com sucesso!');
     }
   }
 

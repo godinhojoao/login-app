@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { positions, Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 
 import { Context } from './context/AuthContext';
 
@@ -22,15 +24,22 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 const Routes = () => {
+  const alertOptions = {
+    timeout: 3000,
+    position: positions.TOP_CENTER
+  }
+
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/login" component={() => <Login />} />
-        <Route exact path="/register" component={() => <Register />} />
-        <PrivateRoute exact path="/dashboard" component={() => <Dashboard />} />
-        <Route component={() => <Redirect to={{ pathname: '/login' }} />} />
-      </Switch>
-    </BrowserRouter>
+      <AlertProvider template={AlertTemplate} {...alertOptions}>
+        <Switch>
+          <Route exact path="/login" component={() => <Login />} />
+          <Route exact path="/register" component={() => <Register />} />
+          <PrivateRoute exact path="/dashboard" component={() => <Dashboard />} />
+          <Route component={() => <Redirect to={{ pathname: '/login' }} />} />
+        </Switch>
+      </AlertProvider>
+    </BrowserRouter >
   );
 };
 

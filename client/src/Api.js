@@ -11,15 +11,6 @@ class UsersApi {
     return response.data;
   };
 
-  async getUser(id) {
-    try {
-      const response = await server.get(`users/${id}`);
-      return response.data;
-    } catch (err) {
-      return { error: { status: err.response.status, message: err.response.data.error } };
-    }
-  };
-
   async createUser(newUser) {
     try {
       const response = await server.post('/users', newUser);
@@ -40,7 +31,7 @@ class UsersApi {
   };
 
   // private routes:
-  async updateUser(id, user, token) {
+  async updateUser({ id, token, user }) {
     try {
       const response = await server.put(`/users/${id}`, user, { headers: { "Authorization": `Bearer ${token}` } });
       return response.data;
@@ -49,7 +40,7 @@ class UsersApi {
     }
   };
 
-  async deleteUser(id, token) {
+  async deleteUser({ id, token }) {
     try {
       const response = await server.delete(`/users/${id}`, { headers: { "Authorization": `Bearer ${token}` } });
       return response.data;
@@ -58,11 +49,12 @@ class UsersApi {
     }
   };
 
-  async getDashboard(token) {
+  async getSpecificUser({ id, token }) {
     try {
-      const response = await server.get('/dashboard', { headers: { "Authorization": `Bearer ${token}` } });
+      const response = await server.get(`users/${id}`, { headers: { "Authorization": `Bearer ${token}` } });
       return response.data;
     } catch (err) {
+      console.log(err);
       return { error: { status: err.response.status, message: err.response.data.error } };
     }
   };

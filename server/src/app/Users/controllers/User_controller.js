@@ -96,10 +96,6 @@ class UserController {
             next(err);
         }
     };
-
-    async dashboard(req, res, next) {
-        res.status(200).json({ auth: true });
-    };
 };
 
 module.exports = new UserController();

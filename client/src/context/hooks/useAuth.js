@@ -9,12 +9,13 @@ export function useAuth() {
 
   useEffect(() => {
     let token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
+    let user = localStorage.getItem('user');
 
     (async () => {
       if (token && user) {
         token = JSON.parse(token);
-        const { error } = await Api.getDashboard(token);
+        user = JSON.parse(user);
+        const { error } = await Api.getSpecificUser({ id: user.id, token });
 
         if (error) {
           localStorageManager.removeItems(['token', 'user'])
@@ -39,7 +40,7 @@ export function useAuth() {
     }
 
     if (token && user) {
-      const { error } = await Api.getDashboard(token);
+      const { error } = await Api.getSpecificUser({ id: user[0].id, token });
 
       if (error) return;
       else {

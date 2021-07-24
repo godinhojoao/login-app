@@ -6,7 +6,6 @@ const authMiddleware = require('./app/middlewares/auth');
 // user routes
 routes.post('/users', userController.create);
 
-
 // user authentication route
 routes.post('/users/login', userController.authenticate);
 

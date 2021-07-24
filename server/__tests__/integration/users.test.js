@@ -8,7 +8,8 @@ describe('users', () => {
     describe('success calls', () => {
         it('should return the expected users list', async () => {
             const response = await request(app)
-                .get('/users');
+                .get('/users')
+                .set('Authorization', `Bearer ${User.generateToken('1')}`);
 
             expect(response.status).toBe(200);
             expect(response.body[0].name).toBe('joao');
@@ -17,7 +18,8 @@ describe('users', () => {
 
         it('should return the expected user', async () => {
             const response = await request(app)
-                .get('/users/1');
+                .get('/users/1')
+                .set('Authorization', `Bearer ${User.generateToken('1')}`);
 
             expect(response.status).toBe(200);
             expect(response.body[0].name).toBe('joao');
@@ -59,7 +61,8 @@ describe('users', () => {
 
         it("shouldn't return the keys: password, updated_at, created_at", async () => {
             const response = await request(app)
-                .get('/users/1');
+                .get('/users/1')
+                .set('Authorization', `Bearer ${User.generateToken('2')}`);
 
             expect(response.status).toBe(200);
             expect(response.body[0].password).toBe(undefined);
@@ -102,7 +105,7 @@ describe('users', () => {
                 "password": "123321"
             });
             const response = await request(app)
-                .get('/dashboard')
+                .get('/users')
                 .set('Authorization', `Bearer ${User.generateToken(user[0].id)}`);
 
             expect(response.status).toBe(200);
@@ -127,13 +130,14 @@ describe('users', () => {
 
         it("shouldn't find a user / should return 404 because the invalid: req.params.id", async () => {
             const response = await request(app)
-                .get('/users/a');
+                .get('/users/a')
+                .set('Authorization', `Bearer ${User.generateToken('2')}`);
 
             expect(response.status).toBe(404);
             expect(response.body.error).toBe('Resultado não encontrado.');
         });
 
-        it("should'nt authenticate with invalid credentials", async () => {
+        it("shouldn't authenticate with invalid credentials", async () => {
             const query = {
                 "email": "opa@gmail.com",
                 "password": "senha errada"
@@ -149,7 +153,7 @@ describe('users', () => {
 
         it("shouldn't be able to access private routes whithout jwt token", async () => {
             const response = await request(app)
-                .get('/dashboard');
+                .get('/users');
 
             expect(response.status).toBe(401);
             expect(response.body.error).toBe('Token not provided.');
@@ -157,7 +161,7 @@ describe('users', () => {
 
         it("shouldn't be able to access private routes with malformatted jwt token", async () => {
             const response = await request(app)
-                .get('/dashboard')
+                .get('/users')
                 .set('Authorization', 'jorge 123123');
 
             expect(response.status).toBe(401);
@@ -166,7 +170,7 @@ describe('users', () => {
 
         it("shouldn't be able to access private routes with invalid jwt token", async () => {
             const response = await request(app)
-                .get('/dashboard')
+                .get('/users')
                 .set('Authorization', 'Bearer 123123');
 
             expect(response.status).toBe(401);
@@ -175,7 +179,7 @@ describe('users', () => {
 
         it("shouldn't be able to access private routes without a part of the jwt token", async () => {
             const response = await request(app)
-                .get('/dashboard')
+                .get('/users')
                 .set('Authorization', 'Bearer');
 
             expect(response.status).toBe(401);

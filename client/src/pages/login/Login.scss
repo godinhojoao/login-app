@@ -1,49 +1,9 @@
 @import './../../styles/utilities';
 
-.login-container {
+.container {
+  height: 100vh;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
-
-  input {
-    border: 1px solid #9c9cf5;
-    border-radius: px-to-rem(5);
-    height: px-to-rem(45);
-    min-width: px-to-rem(250);
-    padding: px-to-rem(16) px-to-rem(8);
-
-    &.error {
-      border: 1px solid #bb0d0d;
-
-      &:hover {
-        border: 1px solid #bb0d0d;
-      }
-    }
-
-    &:hover {
-      background-color: #f8f4f4;
-      border: 1px solid #0202a3;
-    }
-  }
-
-  &__input-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 75px;
-
-    &__error {
-      color: #bb0d0d;
-      font-size: px-to-rem(12);
-    }
-
-    &.password-container {
-      position: relative;
-
-      img {
-        cursor: pointer;
-        position: absolute;
-        right: px-to-rem(10);
-        top: px-to-rem(12);
-      }
-    }
-  }
+  align-items: center;
+  justify-content: center;
 }

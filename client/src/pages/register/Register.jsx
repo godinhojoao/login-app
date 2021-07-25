@@ -51,11 +51,15 @@ function Register() {
   };
 
   return (
-    <Form
-      schema={schema}
-      onSubmit={onSubmit}
-      valuesObj={valuesObj}
-      buttonText="Registrar" />
+    <>
+      <div className="container">
+        <Form
+          schema={schema}
+          onSubmit={onSubmit}
+          valuesObj={valuesObj}
+          buttonText="Registrar" />
+      </div>
+    </>
   );
 };
 

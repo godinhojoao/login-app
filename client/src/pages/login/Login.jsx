@@ -43,12 +43,16 @@ function Login() {
   };
 
   return (
-    <Form
-      schema={schema}
-      onSubmit={onSubmit}
-      valuesObj={valuesObj}
-      buttonText="Entrar"
-      loginForm={true} />
+    <>
+      <div className="container">
+        <Form
+          schema={schema}
+          onSubmit={onSubmit}
+          valuesObj={valuesObj}
+          buttonText="Entrar"
+          loginForm={true} />
+      </div>
+    </>
   );
 };
 

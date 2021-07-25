@@ -8,6 +8,9 @@ import { Context } from './context/AuthContext';
 import { Login } from './pages/login/Login';
 import { Register } from './pages/register/Register';
 import { Dashboard } from './pages/dashboard/Dashboard';
+import { Profile } from './pages/profile/Profile';
+
+import { Header } from './pages/components/Header/Header';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { isLoading, isAuthenticated } = useContext(Context);
@@ -18,7 +21,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
   return <Route {...rest} render={(props) => {
     return (
-      <Component {...props} />
+      <>
+        <Header />
+        <Component {...props} />
+      </>
     );
   }} />;
 };
@@ -26,7 +32,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 const Routes = () => {
   const alertOptions = {
     timeout: 3000,
-    position: positions.TOP_CENTER
+    position: positions.TOP_LEFT
   }
 
   return (
@@ -36,6 +42,7 @@ const Routes = () => {
           <Route exact path="/login" component={() => <Login />} />
           <Route exact path="/register" component={() => <Register />} />
           <PrivateRoute exact path="/dashboard" component={() => <Dashboard />} />
+          <PrivateRoute exact path="/profile" component={() => <Profile />} />
           <Route component={() => <Redirect to={{ pathname: '/login' }} />} />
         </Switch>
       </AlertProvider>

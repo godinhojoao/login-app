@@ -1,0 +1,19 @@
+@import './../../../styles/utilities';
+
+.card {
+  border: thin solid #d3ddf2;
+  border-radius: px-to-rem(8);
+  font-size: px-to-rem(16);
+  height: px-to-rem(188);
+  width: px-to-rem(162);
+
+  &__header {
+    height: px-to-rem(30);
+    background-color: #34349e;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+}

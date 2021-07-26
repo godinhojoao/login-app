@@ -57,17 +57,25 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
                     disabled={!isValid}
                     className={!isValid ? 'disabled' : ''} />
                   <Button
-                    buttonText="Registrar"
+                    buttonText="Criar uma conta"
                     callbackFunction={(event) => {
                       event.preventDefault();
                       history.push('/register')
                     }} />
                 </>
                 :
-                <Button
-                  buttonText="Registrar"
-                  disabled={!isValid}
-                  className={!isValid ? 'disabled' : ''} />
+                <>
+                  <Button
+                    buttonText="Registrar"
+                    disabled={!isValid}
+                    className={!isValid ? 'disabled' : ''} />
+                  <Button
+                    buttonText="Já tem uma conta?"
+                    callbackFunction={(event) => {
+                      event.preventDefault();
+                      history.push('/login')
+                    }} />
+                </>
               }
             </Form>
           );

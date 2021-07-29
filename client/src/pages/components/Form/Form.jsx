@@ -51,7 +51,8 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
                             :
                             'text'
                         }
-                        placeholder={valuesObj.placeholders[field]} />
+                        className="effect-16" />
+                      <label>{valuesObj.labels[field]}</label>
                       {errors[field] && touched[field] &&
                         <span className="login-container__input-container__error">{errors[field]}</span>
                       }

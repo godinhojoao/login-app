@@ -40,10 +40,10 @@ function Register() {
       email: '',
       password: ''
     },
-    placeholders: {
-      name: "Digite seu nome",
-      email: "Digite seu e-mail",
-      password: "Digite sua senha"
+    labels: {
+      name: 'Nome',
+      email: 'E-mail',
+      password: 'Senha'
     },
     inputTypes: {
       password: "password"

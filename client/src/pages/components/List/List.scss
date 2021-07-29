@@ -4,7 +4,7 @@
   border: thin solid #d3ddf2;
   border-radius: px-to-rem(4);
   font-size: px-to-rem(16);
-  width: 50%;
+  min-width: 40%;
 
   &__header {
     align-items: center;

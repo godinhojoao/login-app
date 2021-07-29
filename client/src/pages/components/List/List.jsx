@@ -7,7 +7,7 @@ import './List.scss';
 function List({ listTitle, listDescription, contents, editProfile = false }) {
 
   return (
-    <div className="list">
+    <div className="list" style={editProfile ? {'height': '55%'} : {'height': 'auto'}}>
       <header className="list__header">
         <h3 className="list__header__subtitle">{listTitle}</h3>
         <h3 className="list__header__description">{listDescription}</h3>

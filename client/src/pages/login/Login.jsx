@@ -32,14 +32,14 @@ function Login() {
   const valuesObj = {
     initialValues: {
       email: '',
-      password: ''
+      password: '',
     },
-    placeholders: {
-      email: "Digite seu e-mail",
-      password: "Digite sua senha"
+    labels: {
+      email: 'E-mail',
+      password: 'Senha'
     },
     inputTypes: {
-      password: "password"
+      password: 'password'
     }
   };
 

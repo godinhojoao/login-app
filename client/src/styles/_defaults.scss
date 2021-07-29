@@ -1,6 +1,9 @@
+@import './utilities';
+
 .label {
   color: #9c9c9c;
   font-weight: 500;
+  text-transform: capitalize;
 }
 
 .link-style {
@@ -11,4 +14,27 @@
     color: #0606be;
     text-decoration: underline;
   }
+}
+
+.effect-16 {
+  background-color: transparent;
+}
+
+.effect-16 ~ label {
+  color: #aaa;
+  font-size: px-to-rem(12);
+  left: px-to-rem(12);
+  letter-spacing: 0.5px;
+  position: absolute;
+  top: px-to-rem(16);
+  transition: 0.3s;
+  width: 100%;
+  z-index: -1;
+}
+
+.effect-16:focus ~ label, .effect-16:hover ~ label {
+  top: -16px;
+  font-size: px-to-rem(12);
+  color: #3399FF;
+  transition: 0.3s;
 }

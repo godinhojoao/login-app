@@ -29,17 +29,18 @@
         border: 1px solid #bb0d0d;
       }
     }
-
-    &:hover {
-      background-color: #f8f4f4;
-      border: 1px solid #0202a3;
-    }
   }
 
   &__input-container {
     display: flex;
     flex-direction: column;
-    min-height: 75px;
+    min-height: px-to-rem(75);
+    position: relative;
+
+    p.label {
+      font-size: px-to-rem(14);
+      text-transform: none;
+    }
 
     &__error {
       color: #bb0d0d;
@@ -52,7 +53,7 @@
       svg {
         cursor: pointer;
         position: absolute;
-        right: px-to-rem(10);
+        right: px-to-rem(12);
         top: px-to-rem(10);
         height: 24px;
       }

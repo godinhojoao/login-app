@@ -1,9 +1,21 @@
 import React from 'react';
 
+import { List } from './../components/List/List';
+
+import './Profile.scss';
+
 function Profile() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  user.password = '***********';
 
   return (
-    <h1>Profile page</h1>
+    <div className="container">
+      <List
+        listTitle="Perfil"
+        listDescription="Informações da sua conta"
+        contents={[user]}
+        editProfile={true} />
+    </div>
   );
 };
 

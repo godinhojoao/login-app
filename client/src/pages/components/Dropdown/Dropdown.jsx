@@ -65,7 +65,7 @@ function Dropdown({ children }) {
                   <li
                     key={item.id}
                     className={selectedUrl === item.url ? 'selected' : ''}
-                    onClick={item.func}>
+                    onClick={selectedUrl !== item.url ? item.func : null}>
                     {item.value}
                   </li>
                 );

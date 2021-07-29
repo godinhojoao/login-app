@@ -1,0 +1,33 @@
+@import './../../../styles/utilities';
+
+.list {
+  border: thin solid #d3ddf2;
+  border-radius: px-to-rem(4);
+  font-size: px-to-rem(16);
+  width: 50%;
+
+  &__header {
+    align-items: center;
+    border: thin solid #d3ddf2;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    height: px-to-rem(48);
+    justify-content: center;
+    padding: px-to-rem(32) px-to-rem(8);
+
+    &__subtitle {
+      font-weight: bold;
+      font-size: px-to-rem(22);
+    }
+
+    &__description {
+      font-size: px-to-rem(14);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+}

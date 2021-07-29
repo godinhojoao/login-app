@@ -1,18 +1,37 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Button } from './../Button/Button';
+import { VisibilityOffIcon } from './../../../assets/VisibilityOffIcon';
+import { VisibilityOnIcon } from './../../../assets/VisibilityOnIcon';
 
 import './Form.scss';
 
 function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
-  const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
   const fields = Object.keys(valuesObj.initialValues);
 
   return (
     <>
+      <h1 className="title">{loginForm ? 'Entrar' : 'Registrar'}</h1>
+      <p className="description">
+        {loginForm ?
+          <span>
+            Não possui uma conta?
+            <span className="link-style">
+              <Link to="/register"> registrar</Link>
+            </span>
+          </span>
+          :
+          <span>
+            Já possui uma conta?
+            <span className="link-style">
+              <Link to="/login"> entrar</Link>
+            </span>
+          </span>
+        }
+      </p>
       <Formik
         validationSchema={schema}
         onSubmit={onSubmit}
@@ -37,14 +56,13 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
                         <span className="login-container__input-container__error">{errors[field]}</span>
                       }
                       {valuesObj.inputTypes[field] === 'password' &&
-                        <img
-                          alt={showPassword ? "Olho aberto" : "Olho fechado"}
-                          src={showPassword ?
-                            "https://img.icons8.com/material-rounded/22/000000/visible.png"
+                        <span onClick={() => setShowPassword(!showPassword)}>
+                          {showPassword ?
+                            <VisibilityOnIcon />
                             :
-                            "https://img.icons8.com/material-sharp/22/000000/closed-eye.png"
+                            <VisibilityOffIcon />
                           }
-                          onClick={() => setShowPassword(!showPassword)} />
+                        </span>
                       }
                     </div>
                   );
@@ -56,12 +74,6 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
                     buttonText="Entrar"
                     disabled={!isValid}
                     className={!isValid ? 'disabled' : ''} />
-                  <Button
-                    buttonText="Criar uma conta"
-                    callbackFunction={(event) => {
-                      event.preventDefault();
-                      history.push('/register')
-                    }} />
                 </>
                 :
                 <>
@@ -69,12 +81,6 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
                     buttonText="Registrar"
                     disabled={!isValid}
                     className={!isValid ? 'disabled' : ''} />
-                  <Button
-                    buttonText="Já tem uma conta?"
-                    callbackFunction={(event) => {
-                      event.preventDefault();
-                      history.push('/login')
-                    }} />
                 </>
               }
             </Form>

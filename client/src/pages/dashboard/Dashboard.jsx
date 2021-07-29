@@ -5,7 +5,7 @@ import { useAlert } from "react-alert";
 import { localStorageManager } from './../../shared/LocalStorageManager'
 import { Api } from './../../Api';
 
-import { Card } from './../components/Card/Card';
+import { List } from '../components/List/List';
 
 import './Dashboard.scss';
 
@@ -31,16 +31,10 @@ function Dashboard() {
 
   return (
     <div className="content-container">
-      {
-        users && users.map(user => {
-          return (
-            <Card key={user.id}>
-              <span>nome: {user.name}</span>
-              <span>email: {user.email}</span>
-            </Card>
-          );
-        })
-      }
+      <List
+        listTitle="Lista de usuários"
+        listDescription="Listagem de todos usuários cadastrados"
+        contents={users} />
     </div>
   );
 };

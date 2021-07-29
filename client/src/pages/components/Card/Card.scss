@@ -2,18 +2,32 @@
 
 .card {
   border: thin solid #d3ddf2;
-  border-radius: px-to-rem(8);
-  font-size: px-to-rem(16);
-  height: px-to-rem(188);
-  width: px-to-rem(162);
+  border-radius: px-to-rem(4);
+  display: flex;
+  flex-direction: column;
+  margin: px-to-rem(12);
 
-  &__header {
-    height: px-to-rem(30);
-    background-color: #34349e;
+  &__item {
+    align-items: center;
+    display: flex;
+    font-size: px-to-rem(18);
+    font-weight: 500;
+    justify-content: space-between;
+    padding: px-to-rem(16) px-to-rem(22);
+
+    &:not(:last-child) {
+      border-bottom: thin solid #d3ddf2;
+    }
   }
 
-  &__content {
+  .edit-container {
+    align-items: center;
     display: flex;
-    flex-direction: column;
+    color: #073392;
+
+    &:hover {
+      cursor: pointer;
+      color: #2463eb;
+    }
   }
 }

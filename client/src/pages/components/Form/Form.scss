@@ -1,5 +1,16 @@
 @import './../../../styles/utilities';
 
+.title {
+  color: #010152;
+  font-size: px-to-rem(32);
+  margin-bottom: px-to-rem(8);
+}
+
+.description {
+  font-size: px-to-rem(16);
+  margin-bottom: px-to-rem(30);
+}
+
 .login-container {
   display: flex;
   flex-direction: column;
@@ -38,11 +49,11 @@
     &.password-container {
       position: relative;
 
-      img {
+      svg {
         cursor: pointer;
         position: absolute;
         right: px-to-rem(10);
-        top: px-to-rem(12);
+        top: px-to-rem(10);
         height: 24px;
       }
     }

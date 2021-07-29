@@ -1,0 +1,14 @@
+.label {
+  color: #9c9c9c;
+  font-weight: 500;
+}
+
+.link-style {
+  color: #1d1deb;
+  font-size: px-to-rem(14);
+
+  &:hover {
+    color: #0606be;
+    text-decoration: underline;
+  }
+}

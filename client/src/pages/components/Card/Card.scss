@@ -15,6 +15,11 @@
     justify-content: space-between;
     padding: px-to-rem(16) px-to-rem(22);
 
+    &__info {
+      border: none;
+      text-align: center;
+    }
+
     &:not(:last-child) {
       border-bottom: thin solid #d3ddf2;
     }

@@ -42,7 +42,7 @@ function Register() {
     },
     labels: {
       name: 'Nome',
-      email: 'E-mail',
+      email: 'Email',
       password: 'Senha'
     },
     inputTypes: {

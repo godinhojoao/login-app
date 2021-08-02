@@ -16,14 +16,14 @@
   }
 }
 
-.effect-16 {
+.input-effect {
   background-color: transparent;
 }
 
-.effect-16 ~ label {
+.input-effect ~ label {
   color: #aaa;
   font-size: px-to-rem(12);
-  left: px-to-rem(12);
+  left: px-to-rem(4);
   letter-spacing: 0.5px;
   position: absolute;
   top: px-to-rem(16);
@@ -32,7 +32,9 @@
   z-index: -1;
 }
 
-.effect-16:focus ~ label, .effect-16:hover ~ label {
+.input-effect:focus ~ label,
+.input-effect:hover ~ label,
+.has-content ~ label {
   top: -16px;
   font-size: px-to-rem(12);
   color: #3399FF;

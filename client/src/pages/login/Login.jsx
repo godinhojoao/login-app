@@ -35,7 +35,7 @@ function Login() {
       password: '',
     },
     labels: {
-      email: 'E-mail',
+      email: 'Email',
       password: 'Senha'
     },
     inputTypes: {

@@ -36,7 +36,7 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
         validationSchema={schema}
         onSubmit={onSubmit}
         initialValues={valuesObj.initialValues} >
-        {({ errors, touched, isValid }) => {
+        {({ errors, touched, isValid, values }) => {
           return (
             <Form className="login-container">
               {
@@ -45,13 +45,14 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
                     <div key={index} className={`login-container__input-container ${valuesObj.inputTypes[field] === 'password' ? 'password-container' : ''}`}>
                       <Field
                         name={field}
+                        autoComplete={loginForm ? 'on' : 'off'}
                         type={
                           valuesObj.inputTypes[field] === 'password' ?
                             showPassword ? 'text' : 'password'
                             :
                             'text'
                         }
-                        className="effect-16" />
+                        className={`input-effect ${values[field] ? 'has-content' : ''}`} />
                       <label>{valuesObj.labels[field]}</label>
                       {errors[field] && touched[field] &&
                         <span className="login-container__input-container__error">{errors[field]}</span>

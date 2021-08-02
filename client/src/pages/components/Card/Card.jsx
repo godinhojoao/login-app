@@ -1,30 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './Card.scss';
 import { EditIcon } from './../../../assets/EditIcon';
+import { Button } from './../Button/Button';
 
 function Card({ user, editProfile = false }) {
-  delete user.id;
   const userEntries = Object.entries(user);
+  const [isEditable, setIsEditable] = useState({
+    id: false,
+    name: false,
+    email: false,
+    password: false
+  });
+
+  function onChangeEditable(event) {
+    const path = event.nativeEvent.path;
+
+    path.forEach(element => {
+
+      if (element && element.classList && element.classList.contains('card__item')) {
+
+        userEntries.forEach(entry => {
+
+          if (element.classList.contains(entry[0])) {
+            const currentKeyToChange = entry[0];
+            const currentValue = isEditable[currentKeyToChange];
+            setIsEditable({ ...isEditable, [currentKeyToChange]: !currentValue });
+          }
+        });
+
+      }
+    });
+  };
+
+  function onSave(event) {
+    console.log(event);
+  };
 
   return (
-    <div key={user.id} className="card">
-      {
-        userEntries.map((entry, index) => {
-          return (
-            <div key={index} className="card__item">
-              <span className="label">{entry[0]}</span> {entry[1]}
-              {editProfile &&
-                <div className="edit-container">
-                  <span>Editar</span>
-                  <EditIcon className="link-style" />
-                </div>
-              }
-            </div>
-          );
-        })
+    <>
+      <div className="card">
+        {
+          userEntries.map((entry, index) => {
+            const [key, value] = entry
+
+            return (
+              <>
+                {
+                  entry[0] !== 'id' &&
+                  <div key={index} className={`card__item ${key}`}>
+                    <span className="label">{entry[0]}</span>
+                    <input
+                      type="text"
+                      className="card__item__info"
+                      name={key}
+                      defaultValue={value}
+                      autoComplete="off"
+                      disabled={!isEditable[key]} />
+                    {editProfile &&
+                      <div className="edit-container" onClick={onChangeEditable}>
+                        <span>Editar</span>
+                        <EditIcon />
+                      </div>
+                    }
+                  </div>
+                }
+              </>
+            );
+          })
+        }
+      </div >
+      {editProfile &&
+        <Button
+          buttonText="Salvar"
+          style={{ 'width': 'calc(100% - 24px)', 'alignSelf': 'center' }}
+          callbackFunction={onSave} />
       }
-    </div>
+    </>
   );
 };
 

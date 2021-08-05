@@ -14,7 +14,7 @@ class UsersApi {
     } catch (err) {
       return { error: { status: err.response.status, message: err.response.data.error } };
     }
-  };
+  }
 
   // user authentication route
   async login({ email, password }) {
@@ -24,7 +24,7 @@ class UsersApi {
     } catch (err) {
       return { error: { status: err.response.status, message: err.response.data.error } };
     }
-  };
+  }
 
   // private routes:
   async getUsers(token) {
@@ -34,7 +34,7 @@ class UsersApi {
     } catch (err) {
       return { error: { status: err.response.status, message: err.response.data.error } };
     }
-  };
+  }
 
   async getSpecificUser({ id, token }) {
     try {
@@ -43,7 +43,7 @@ class UsersApi {
     } catch (err) {
       return { error: { status: err.response.status, message: err.response.data.error } };
     }
-  };
+  }
 
   async updateUser({ id, token, user }) {
     try {
@@ -52,7 +52,7 @@ class UsersApi {
     } catch (err) {
       return { error: { status: err.response.status, message: err.response.data.error } };
     }
-  };
+  }
 
   async deleteUser({ id, token }) {
     try {
@@ -61,8 +61,8 @@ class UsersApi {
     } catch (err) {
       return { error: { status: err.response.status, message: err.response.data.error } };
     }
-  };
-};
+  }
+}
 
 const Api = new UsersApi();
 

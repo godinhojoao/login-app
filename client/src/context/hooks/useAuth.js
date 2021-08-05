@@ -8,8 +8,6 @@ export function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // let token = localStorage.getItem('token');
-    // let user = localStorage.getItem('user');
     let [token, user] = localStorageManager.getItems(['token', 'user']);
 
     (async () => {
@@ -69,4 +67,4 @@ export function useAuth() {
   }
 
   return { isAuthenticated, isLoading, handleLogin, handleLogout };
-};
+}

@@ -28,7 +28,7 @@ class LocalStorageManager {
 
     return;
   }
-};
+}
 
 const localStorageManager = new LocalStorageManager();
 

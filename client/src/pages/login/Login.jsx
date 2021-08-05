@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 
@@ -25,7 +25,7 @@ function Login() {
       alert.error("Servidor desligado!");
       console.log(error);
     }
-  };
+  }
 
   const valuesObj = {
     initialValues: {
@@ -49,6 +49,6 @@ function Login() {
       buttonText="Entrar"
       loginForm={true} />
   );
-};
+}
 
 export { Login };

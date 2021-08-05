@@ -24,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
-    "pre-commit": "npm run lint"
+    "pre-commit": "npm run lint && cd ../server && npm run test"
   },
   "eslintConfig": {
     "extends": [

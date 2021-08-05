@@ -15,6 +15,6 @@ function Profile() {
         editProfile={true} />
     </div>
   );
-};
+}
 
 export { Profile };

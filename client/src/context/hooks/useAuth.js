@@ -16,12 +16,12 @@ export function useAuth() {
 
         if (error) {
           localStorageManager.removeItems(['token', 'user']);
-          setIsLoading(false);
         } else {
           setIsAuthenticated(true);
-          setIsLoading(false);
         }
       }
+
+      setIsLoading(false);
     })();
   }, []);
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 
@@ -32,7 +32,7 @@ function Register() {
       alert.error("Servidor desligado!");
       console.log(error);
     }
-  };
+  }
 
   const valuesObj = {
     initialValues: {
@@ -48,7 +48,7 @@ function Register() {
     inputTypes: {
       password: "password"
     }
-  };
+  }
 
   return (
     <Form
@@ -57,6 +57,6 @@ function Register() {
       valuesObj={valuesObj}
       buttonText="Registrar" />
   );
-};
+}
 
 export { Register };

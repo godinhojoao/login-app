@@ -26,6 +26,6 @@ function List({ listTitle, listDescription, contents, editProfile = false }) {
       </div>
     </div>
   );
-};
+}
 
 export { List };

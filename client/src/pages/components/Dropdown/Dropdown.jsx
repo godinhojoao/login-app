@@ -31,22 +31,22 @@ function Dropdown({ children }) {
     func: handleExit
   }]
 
-  function handleShowProfile(event) {
+  function handleShowProfile() {
     history.push('/profile');
     setSelectedUrl(history.location.pathname);
     setShowContent(false);
-  };
+  }
 
-  function handleShowUsersList(event) {
+  function handleShowUsersList() {
     history.push('/dashboard');
     setSelectedUrl(history.location.pathname);
     setShowContent(false);
-  };
+  }
 
-  function handleExit(event) {
+  function handleExit() {
     handleLogout();
     alert.success('Você foi desconectado com sucesso!');
-  };
+  }
 
   return (
     <>
@@ -76,6 +76,6 @@ function Dropdown({ children }) {
       </div>
     </>
   );
-};
+}
 
 export { Dropdown };

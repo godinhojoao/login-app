@@ -54,6 +54,6 @@ function Loading() {
       </g>
     </svg>
   );
-};
+}
 
 export { Loading };

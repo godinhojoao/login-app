@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 
 import { localStorageManager } from './../../shared/LocalStorageManager'
@@ -10,7 +9,6 @@ import { List } from '../components/List/List';
 import './Dashboard.scss';
 
 function Dashboard() {
-  // const history = useHistory();
   const alert = useAlert();
   let [users, setUsers] = useState([]);
 
@@ -22,7 +20,6 @@ function Dashboard() {
         if (res.error) {
           localStorageManager.removeItems(['token', 'user'])
           alert.error('Algum erro ocorreu, faça login novamente.');
-          // history.push('/login'); // nao sei pq ta dando bug
         }
 
         setUsers(res);
@@ -37,6 +34,6 @@ function Dashboard() {
         contents={users} />
     </div>
   );
-};
+}
 
 export { Dashboard };

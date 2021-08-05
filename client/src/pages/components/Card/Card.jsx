@@ -31,11 +31,11 @@ function Card({ user, editProfile = false }) {
 
       }
     });
-  };
+  }
 
   function onSave(event) {
     console.log(event);
-  };
+  }
 
   return (
     <>
@@ -79,6 +79,6 @@ function Card({ user, editProfile = false }) {
       }
     </>
   );
-};
+}
 
 export { Card };

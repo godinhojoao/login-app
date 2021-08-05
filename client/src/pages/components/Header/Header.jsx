@@ -12,6 +12,6 @@ function Header() {
       </Dropdown>
     </header>
   );
-};
+}
 
 export { Header };

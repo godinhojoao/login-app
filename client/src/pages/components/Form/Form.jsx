@@ -91,6 +91,6 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
       </Formik>
     </>
   );
-};
+}
 
 export default CustomForm;

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import './defaults';
+@import './resets';
 
 html, body {
   font-size: 16px;
@@ -13,22 +14,11 @@ html, body {
   width: 100%;
 }
 
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-  padding: 0;
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-input, textarea, button {
-  outline: none
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
 }

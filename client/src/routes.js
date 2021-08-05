@@ -11,13 +11,14 @@ import { Dashboard } from './pages/dashboard/Dashboard';
 import { Profile } from './pages/profile/Profile';
 
 import { Header } from './pages/components/Header/Header';
+import { Loading } from './pages/components/Loading/Loading';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { isLoading, isAuthenticated } = useContext(Context);
 
-  if (isLoading) return <h1>loading...</h1>;
+  if (isLoading) { return <Loading />; }
 
-  if (!isLoading && !isAuthenticated) return <Redirect to={{ pathname: '/' }} />;
+  if (!isLoading && !isAuthenticated) { return <Redirect to={{ pathname: '/' }} />; }
 
   return <Route {...rest} render={(props) => {
     return (
@@ -36,17 +37,19 @@ const Routes = () => {
   }
 
   return (
-    <BrowserRouter>
-      <AlertProvider template={AlertTemplate} {...alertOptions}>
-        <Switch>
-          <Route exact path="/login" component={() => <Login />} />
-          <Route exact path="/register" component={() => <Register />} />
-          <PrivateRoute exact path="/dashboard" component={() => <Dashboard />} />
-          <PrivateRoute exact path="/profile" component={() => <Profile />} />
-          <Route component={() => <Redirect to={{ pathname: '/login' }} />} />
-        </Switch>
-      </AlertProvider>
-    </BrowserRouter >
+    <div className="container">
+      <BrowserRouter>
+        <AlertProvider template={AlertTemplate} {...alertOptions}>
+          <Switch>
+            <Route exact path="/login" component={() => <Login />} />
+            <Route exact path="/register" component={() => <Register />} />
+            <PrivateRoute exact path="/dashboard" component={() => <Dashboard />} />
+            <PrivateRoute exact path="/profile" component={() => <Profile />} />
+            <Route component={() => <Redirect to={{ pathname: '/login' }} />} />
+          </Switch>
+        </AlertProvider>
+      </BrowserRouter >
+    </div>
   );
 };
 

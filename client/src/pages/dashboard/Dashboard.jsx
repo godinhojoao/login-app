@@ -15,7 +15,7 @@ function Dashboard() {
   let [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = localStorageManager.getItem('token');
 
     Api.getUsers(token)
       .then(res => {

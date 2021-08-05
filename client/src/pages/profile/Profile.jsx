@@ -2,8 +2,6 @@ import React from 'react';
 
 import { List } from './../components/List/List';
 
-import './Profile.scss';
-
 function Profile() {
   const user = JSON.parse(localStorage.getItem('user'));
   user.password = '***********';

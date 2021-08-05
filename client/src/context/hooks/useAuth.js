@@ -8,24 +8,23 @@ export function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    let token = localStorage.getItem('token');
-    let user = localStorage.getItem('user');
+    // let token = localStorage.getItem('token');
+    // let user = localStorage.getItem('user');
+    let [token, user] = localStorageManager.getItems(['token', 'user']);
 
     (async () => {
       if (token && user) {
-        token = JSON.parse(token);
-        user = JSON.parse(user);
         const { error } = await Api.getSpecificUser({ id: user.id, token });
 
         if (error) {
-          localStorageManager.removeItems(['token', 'user'])
+          localStorageManager.removeItems(['token', 'user']);
+          setIsLoading(false);
         } else {
           setIsAuthenticated(true);
+          setIsLoading(false);
         }
       }
-    })()
-
-    setIsLoading(false);
+    })();
   }, []);
 
   async function handleLogin({ email, password, alert }) {
@@ -66,7 +65,7 @@ export function useAuth() {
 
   function handleLogout() {
     setIsAuthenticated(false);
-    localStorageManager.removeItems(['token', 'user'])
+    localStorageManager.removeItems(['token', 'user']);
   }
 
   return { isAuthenticated, isLoading, handleLogin, handleLogout };

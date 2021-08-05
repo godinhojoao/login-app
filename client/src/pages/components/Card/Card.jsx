@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 
 import './Card.scss';
 import { EditIcon } from './../../../assets/EditIcon';
@@ -42,22 +42,23 @@ function Card({ user, editProfile = false }) {
       <div className="card">
         {
           userEntries.map((entry, index) => {
-            const [key, value] = entry
+            const [key, value] = entry;
 
             return (
-              <>
+              <Fragment key={index} >
                 {
-                  entry[0] !== 'id' &&
-                  <div key={index} className={`card__item ${key}`}>
-                    <span className="label">{entry[0]}</span>
+                  key !== 'id' &&
+                  <div className={`card__item ${key}`}>
+                    <span className="label">{key}</span>
                     <input
-                      type="text"
+                      type={`${key === 'password' ? 'password' : 'text'}`}
                       className="card__item__info"
                       name={key}
                       defaultValue={value}
                       autoComplete="off"
                       disabled={!isEditable[key]} />
-                    {editProfile &&
+                    {
+                      editProfile &&
                       <div className="edit-container" onClick={onChangeEditable}>
                         <span>Editar</span>
                         <EditIcon />
@@ -65,7 +66,7 @@ function Card({ user, editProfile = false }) {
                     }
                   </div>
                 }
-              </>
+              </Fragment>
             );
           })
         }

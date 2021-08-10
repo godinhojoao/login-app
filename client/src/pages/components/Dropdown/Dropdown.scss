@@ -1,4 +1,5 @@
 @import './../../../styles/utilities';
+@import './../../../styles/settings.variables';
 
 .dropdown-container {
   bottom: 0;
@@ -19,7 +20,7 @@
     user-select: none;
 
     &:hover {
-      background-color: #5a5afa;
+      background-color: map-get($colors, 'link-hover');
     }
   }
 
@@ -32,7 +33,7 @@
   &.opened {
 
     .dropdown__content {
-      background-color: #072c63;
+      background-color: map-get($colors, 'link');
       border-radius: px-to-rem(5);
       padding: px-to-rem(4) 0;
       position: absolute;
@@ -48,11 +49,11 @@
           padding: px-to-rem(4) px-to-rem(12);
 
           &.selected {
-            background-color: #064aaf;
+            background-color: map-get($colors, 'link-hover');
           }
 
           &:hover {
-            background-color: #064aaf;
+            background-color: map-get($colors, 'link-hover');
           }
         }
       }

@@ -1,4 +1,5 @@
 @import './../../../styles/utilities';
+@import './../../../styles/settings.variables';
 
 .title {
   color: #010152;
@@ -16,17 +17,17 @@
   flex-direction: column;
 
   input {
-    border: 1px solid #9c9cf5;
+    border: 1px solid map-get($colors, 'border');
     border-radius: px-to-rem(5);
     height: px-to-rem(45);
     min-width: px-to-rem(250);
     padding: px-to-rem(16) px-to-rem(8);
 
     &.error {
-      border: 1px solid #bb0d0d;
+      border: 1px solid map-get($colors, 'dark-red');
 
       &:hover {
-        border: 1px solid #bb0d0d;
+        border: 1px solid map-get($colors, 'light-red');
       }
     }
   }
@@ -43,7 +44,7 @@
     }
 
     &__error {
-      color: #bb0d0d;
+      color: map-get($colors, 'light-red');
       font-size: px-to-rem(12);
     }
 

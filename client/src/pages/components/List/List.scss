@@ -1,14 +1,15 @@
 @import './../../../styles/utilities';
+@import './../../../styles/settings.variables';
 
 .list {
-  border: thin solid #d3ddf2;
+  border: thin solid map-get($colors, 'border');
   border-radius: px-to-rem(4);
   font-size: px-to-rem(16);
   min-width: 40%;
 
   &__header {
     align-items: center;
-    border: thin solid #d3ddf2;
+    border: thin solid map-get($colors, 'border');
     color: black;
     display: flex;
     flex-direction: column;

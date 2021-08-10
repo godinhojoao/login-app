@@ -31,7 +31,7 @@
     "seed_db": "npx knex seed:run",
     "pretest": "NODE_MODE=test npm run recreate_db && NODE_MODE=test npm run seed_db",
     "test": "NODE_MODE=test jest --forceExit",
-    "pre-commit": "npm run test && cd ../client && npm run lint "
+    "pre-commit": "npm run test && cd ../client && npm run lint"
   },
   "keywords": [],
   "author": "",

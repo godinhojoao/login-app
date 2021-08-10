@@ -1,7 +1,8 @@
 @import './../../../styles/utilities';
+@import './../../../styles/settings.variables';
 
 button {
-  background-color: #4343db;
+  background-color: map-get($colors, 'primary-background');
   border: transparent;
   border-radius: px-to-rem(5);
   color: white;
@@ -11,7 +12,7 @@ button {
   margin-bottom: px-to-rem(10);
 
   &:hover {
-    background-color: #04047a;
+    background-color: map-get($colors, 'primary-background-hover');
     cursor: pointer;
   }
 

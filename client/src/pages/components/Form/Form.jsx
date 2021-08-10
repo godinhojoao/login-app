@@ -3,12 +3,12 @@ import { Formik, Form, Field } from 'formik';
 import { Link } from "react-router-dom";
 
 import { Button } from './../Button/Button';
-import { VisibilityOffIcon } from './../../../assets/VisibilityOffIcon';
-import { VisibilityOnIcon } from './../../../assets/VisibilityOnIcon';
+import { IconsManager } from '../../../assets/icons/IconsManager';
 
 import './Form.scss';
 
 function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
+  const iconsManager = new IconsManager();
   const [showPassword, setShowPassword] = useState(false);
   const fields = Object.keys(valuesObj.initialValues);
 
@@ -60,9 +60,9 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
                       {valuesObj.inputTypes[field] === 'password' &&
                         <span onClick={() => setShowPassword(!showPassword)}>
                           {showPassword ?
-                            <VisibilityOnIcon />
+                            <iconsManager.VisibilityOnIcon />
                             :
-                            <VisibilityOffIcon />
+                            <iconsManager.VisibilityOffIcon />
                           }
                         </span>
                       }

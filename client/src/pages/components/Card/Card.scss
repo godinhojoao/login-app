@@ -1,7 +1,8 @@
-@import './../../../styles/utilities';
+@import "./../../../styles/utilities";
+@import "./../../../styles/settings.variables";
 
 .card {
-  border: thin solid #d3ddf2;
+  border: thin solid map-get($colors, "border");
   border-radius: px-to-rem(4);
   display: flex;
   flex-direction: column;
@@ -15,24 +16,43 @@
     justify-content: space-between;
     padding: px-to-rem(16) px-to-rem(22);
 
+    .blocked {
+      svg {
+        fill: map-get($colors, "dark-red");
+      }
+    }
+
+    .actived {
+      svg {
+        fill: #006d00;
+      }
+    }
+
+    &__label {
+      color: black;
+      text-transform: capitalize;
+    }
+
     &__info {
-      border: none;
+      border: thin solid map-get($colors, "border");
+      border-radius: px-to-rem(5);
+      padding: px-to-rem(6) px-to-rem(2);
       text-align: center;
     }
 
     &:not(:last-child) {
-      border-bottom: thin solid #d3ddf2;
+      border-bottom: thin solid map-get($colors, "border");
     }
   }
 
   .edit-container {
     align-items: center;
     display: flex;
-    color: #073392;
+    color: map-get($colors, "link");
 
     &:hover {
       cursor: pointer;
-      color: #2463eb;
+      color: map-get($colors, "link-hover");
     }
   }
 }

@@ -1,4 +1,5 @@
 @import './../../styles/utilities';
+@import './../../styles/settings.variables';
 
 body {
   overflow-x: hidden;
@@ -6,7 +7,7 @@ body {
 
 .dashboard-menu-header {
   align-items: center;
-  background-color: #4343db;
+  background-color: map-get($colors, 'primary-background');
   color: white;
   display: flex;
   justify-content: space-between;

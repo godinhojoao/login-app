@@ -1,10 +1,12 @@
 import React, { useState, Fragment } from 'react';
 
-import './Card.scss';
-import { EditIcon } from './../../../assets/EditIcon';
+import { IconsManager } from './../../../assets/icons/IconsManager';
 import { Button } from './../Button/Button';
 
+import './Card.scss';
+
 function Card({ user, editProfile = false }) {
+  const iconsManager = new IconsManager();
   const userEntries = Object.entries(user);
   const [isEditable, setIsEditable] = useState({
     id: false,
@@ -49,7 +51,15 @@ function Card({ user, editProfile = false }) {
                 {
                   key !== 'id' &&
                   <div className={`card__item ${key}`}>
-                    <span className="label">{key}</span>
+                    <span className={!isEditable[key] ? 'blocked' : 'actived'} >
+                      {
+                        !isEditable[key] ?
+                          <iconsManager.BlockIcon />
+                          :
+                          <iconsManager.EditIcon measures={{ height: '24px', width: '24px' }} />
+                      }
+                    </span>
+                    <span className="card__item__label">{key}</span>
                     <input
                       type={`${key === 'password' ? 'password' : 'text'}`}
                       className="card__item__info"
@@ -61,7 +71,7 @@ function Card({ user, editProfile = false }) {
                       editProfile &&
                       <div className="edit-container" onClick={onChangeEditable}>
                         <span>Editar</span>
-                        <EditIcon />
+                        <iconsManager.EditIcon />
                       </div>
                     }
                   </div>

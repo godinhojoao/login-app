@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { List } from './../components/List/List';
 
 function Profile() {
   const user = JSON.parse(localStorage.getItem('user'));
   user.password = '***********';
+
+  useEffect(() => {
+    document.querySelector('.container').classList.remove('auto-height');
+  }, []);
 
   return (
     <div className="container">

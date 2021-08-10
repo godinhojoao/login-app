@@ -13,6 +13,8 @@ function Dashboard() {
   let [users, setUsers] = useState([]);
 
   useEffect(() => {
+    document.querySelector('.container').classList.add('auto-height');
+
     const token = localStorageManager.getItem('token');
 
     Api.getUsers(token)

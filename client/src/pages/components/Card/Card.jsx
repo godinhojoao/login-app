@@ -14,6 +14,7 @@ function Card({ user, editProfile = false }) {
     email: false,
     password: false
   });
+  const [currentUserValues, setCurrentUserValues] = useState(user);
 
   function onChangeEditable(event) {
     const path = event.nativeEvent.path;
@@ -35,8 +36,8 @@ function Card({ user, editProfile = false }) {
     });
   }
 
-  function onSave(event) {
-    console.log(event);
+  function onSave() {
+    console.log(currentUserValues);
   }
 
   return (
@@ -51,27 +52,38 @@ function Card({ user, editProfile = false }) {
                 {
                   key !== 'id' &&
                   <div className={`card__item ${key}`}>
-                    <span className={!isEditable[key] ? 'blocked' : 'actived'} >
+                    <span className={!isEditable[key] ? 'blocked-icon' : 'actived-icon'} >
                       {
-                        !isEditable[key] ?
-                          <iconsManager.BlockIcon />
+                        editProfile ?
+                          (
+                            !isEditable[key] ?
+                              <iconsManager.BlockIcon />
+                              :
+                              <iconsManager.EditIcon measures={{ height: '24px', width: '24px' }} />
+                          )
                           :
-                          <iconsManager.EditIcon measures={{ height: '24px', width: '24px' }} />
+                          <img src="https://img.icons8.com/material-outlined/24/000000/user--v1.png" alt="Icone perfil" />
                       }
                     </span>
                     <span className="card__item__label">{key}</span>
+                    {/* tornar esse input um componente que é validado com o schema e etc */}
                     <input
                       type={`${key === 'password' ? 'password' : 'text'}`}
                       className="card__item__info"
                       name={key}
                       defaultValue={value}
                       autoComplete="off"
-                      disabled={!isEditable[key]} />
+                      disabled={!isEditable[key]}
+                      onChange={e => { setCurrentUserValues({ ...currentUserValues, [key]: e.target.value }) }} />
                     {
                       editProfile &&
                       <div className="edit-container" onClick={onChangeEditable}>
-                        <span>Editar</span>
-                        <iconsManager.EditIcon />
+                        <span className={!isEditable[key] ? 'blocked-text' : 'activated-text'}>
+                          Editar
+                        </span>
+                        <span className={!isEditable[key] ? 'blocked-icon' : 'actived-icon'}>
+                          <iconsManager.EditIcon />
+                        </span>
                       </div>
                     }
                   </div>
@@ -81,7 +93,8 @@ function Card({ user, editProfile = false }) {
           })
         }
       </div >
-      {editProfile &&
+      {
+        editProfile &&
         <Button
           buttonText="Salvar"
           style={{ 'width': 'calc(100% - 24px)', 'alignSelf': 'center' }}

@@ -13,6 +13,8 @@ function Login() {
   const { isAuthenticated, handleLogin } = useContext(Context);
 
   useEffect(() => {
+    document.querySelector('.container').classList.remove('auto-height');
+
     if (isAuthenticated) {
       history.push('/profile');
     }

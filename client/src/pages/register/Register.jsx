@@ -13,6 +13,8 @@ function Register() {
   const { isAuthenticated } = useContext(Context);
 
   useEffect(() => {
+    document.querySelector('.container').classList.remove('auto-height');
+
     if (isAuthenticated) {
       history.push('/dashboard');
     }

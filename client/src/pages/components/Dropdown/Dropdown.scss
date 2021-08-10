@@ -1,5 +1,5 @@
-@import './../../../styles/utilities';
-@import './../../../styles/settings.variables';
+@import "./../../../styles/utilities";
+@import "./../../../styles/settings.variables";
 
 .dropdown-container {
   bottom: 0;
@@ -20,7 +20,7 @@
     user-select: none;
 
     &:hover {
-      background-color: map-get($colors, 'link-hover');
+      background-color: lighten(map-get($colors, "link"), 10%);
     }
   }
 
@@ -31,9 +31,8 @@
   }
 
   &.opened {
-
     .dropdown__content {
-      background-color: map-get($colors, 'link');
+      background-color: map-get($colors, "link");
       border-radius: px-to-rem(5);
       padding: px-to-rem(4) 0;
       position: absolute;
@@ -41,7 +40,7 @@
 
       ul {
         list-style-type: none;
-        transition-delay: .2s;
+        transition-delay: 0.2s;
         user-select: none;
 
         li {
@@ -49,15 +48,14 @@
           padding: px-to-rem(4) px-to-rem(12);
 
           &.selected {
-            background-color: map-get($colors, 'link-hover');
+            background-color: lighten(map-get($colors, "link"), 10%);
           }
 
           &:hover {
-            background-color: map-get($colors, 'link-hover');
+            background-color: lighten(map-get($colors, "link"), 10%);
           }
         }
       }
     }
   }
-
 }

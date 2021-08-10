@@ -1,5 +1,9 @@
 @import './utilities';
 
+.auto-height {
+  height: auto !important;
+}
+
 .label {
   color: #9c9c9c;
   font-weight: 500;
@@ -11,7 +15,7 @@
   font-size: px-to-rem(14);
 
   &:hover {
-    color: #0606be;
+    color: lighten(#1d1deb, 10%);
     text-decoration: underline;
   }
 }

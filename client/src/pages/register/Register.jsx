@@ -25,11 +25,11 @@ function Register() {
       const { error } = await Api.createUser(values);
 
       if (error) {
-        return alert.error(error.message)
+        return alert.error(error.message);
       } else {
-        await alert.success('Conta criada com sucesso, realize login!');
+        alert.success('Conta criada com sucesso, realize login!');
+        history.push('/login');
       }
-      history.push('/login');
     } catch (error) {
       alert.error("Servidor desligado!");
       console.log(error);

@@ -20,7 +20,7 @@ module.exports = (tableName) => {
         async findOne(options) {
             try {
                 const result = await knex.select().from(this.tableName).where('id', options.id);
-                if (result.length < 1) throw createError(404, 'Resultado não encontrado');
+                if (result.length < 1) throw createError(404, 'Resultado não encontrado.');
                 return result;
             } catch (err) {
                 throw err;

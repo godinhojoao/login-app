@@ -26,6 +26,7 @@
   "rules": {
     "react/prop-types": "off",
     "no-console": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-trailing-spaces": "error"
   }
 }

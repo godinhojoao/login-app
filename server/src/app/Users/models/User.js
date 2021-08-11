@@ -11,17 +11,13 @@ class User {
         try {
             const allUsers = await db.getAll();
             return allUsers;
-        } catch (error) {
+        } catch (err) {
             throw err;
         }
     };
 
     async findOne(id) {
         id = parseInt(id);
-
-        if (isNaN(id)) {
-            throw createHttpError(404, 'Resultado não encontrado.');
-        }
 
         try {
             const user = await db.findOne({ id });
@@ -65,12 +61,6 @@ class User {
         const { name, email, password } = userValue;
         let { id } = userValue;
 
-        id = parseInt(id);
-
-        if (isNaN(id)) {
-            throw createHttpError(404, 'Resultado não encontrado.');
-        }
-
         const validatedUser = userSchema.validate({ name, email, password });
 
         if (validatedUser.error) {
@@ -87,10 +77,6 @@ class User {
 
     async delete(id) {
         id = parseInt(id);
-
-        if (isNaN(id)) {
-            throw createHttpError(404, 'Resultado não encontrado.');
-        }
 
         try {
             await db.delete({ id });

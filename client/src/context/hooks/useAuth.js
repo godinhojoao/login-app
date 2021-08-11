@@ -37,7 +37,7 @@ export function useAuth() {
     }
 
     if (token && user) {
-      const { error } = await Api.getSpecificUser({ id: user[0].id, token });
+      const { error } = await Api.getSpecificUser({ id: user.id, token });
 
       if (error) return;
       else {
@@ -50,7 +50,7 @@ export function useAuth() {
           },
           {
             name: 'user',
-            value: user[0]
+            value: user
           }
         ]
 

@@ -12,8 +12,8 @@ describe('users', () => {
                 .set('Authorization', `Bearer ${User.generateToken('1')}`);
 
             expect(response.status).toBe(200);
-            expect(response.body[0].name).toBe('joao');
-            expect(response.body.length).toBe(3);
+            expect(response.body.users[0].name).toBe('joao');
+            expect(response.body.users.length).toBe(3);
         });
 
         it('should return the expected user', async () => {
@@ -22,7 +22,7 @@ describe('users', () => {
                 .set('Authorization', `Bearer ${User.generateToken('1')}`);
 
             expect(response.status).toBe(200);
-            expect(response.body[0].name).toBe('joao');
+            expect(response.body.user.name).toBe('joao');
         });
 
         it('should create a user', async () => {
@@ -37,7 +37,7 @@ describe('users', () => {
                 .send(query);
 
             expect(response.status).toBe(201);
-            expect(response.body.user[0].name).toBe('jorginhoa');
+            expect(response.body.user.name).toBe('jorginhoa');
             expect(response.body).toHaveProperty('token');
         });
 
@@ -48,7 +48,7 @@ describe('users', () => {
                 .send({ name: "alfabeto foda" });
 
             expect(response.status).toBe(200);
-            expect(response.body[0].name).toBe('alfabeto foda');
+            expect(response.body.updatedUser.name).toBe('alfabeto foda');
         });
 
         it('should delete a user with your own token', async () => {
@@ -65,9 +65,9 @@ describe('users', () => {
                 .set('Authorization', `Bearer ${User.generateToken('2')}`);
 
             expect(response.status).toBe(200);
-            expect(response.body[0].password).toBe(undefined);
-            expect(response.body[0].created_at).toBe(undefined);
-            expect(response.body[0].updated_at).toBe(undefined);
+            expect(response.body.password).toBe(undefined);
+            expect(response.body.created_at).toBe(undefined);
+            expect(response.body.updated_at).toBe(undefined);
         });
 
         it('should authenticate with valid credentials', async () => {
@@ -81,7 +81,7 @@ describe('users', () => {
                 .send(query);
 
             expect(response.status).toBe(200);
-            expect(response.body.user[0].name).toBe("claudio");
+            expect(response.body.user.name).toBe("claudio");
         });
 
         it('should return a jwt token when auhtenticated', async () => {
@@ -131,6 +131,33 @@ describe('users', () => {
         it("shouldn't find a user / should return 404 because the invalid: req.params.id", async () => {
             const response = await request(app)
                 .get('/users/a')
+                .set('Authorization', `Bearer ${User.generateToken('2')}`);
+
+            expect(response.status).toBe(404);
+            expect(response.body.error).toBe('Resultado não encontrado.');
+        });
+
+        it("shouldn't update a user / should return 404 because the invalid: req.params.id", async () => {
+            const response = await request(app)
+                .get('/users/a')
+                .set('Authorization', `Bearer ${User.generateToken('2')}`);
+
+            expect(response.status).toBe(404);
+            expect(response.body.error).toBe('Resultado não encontrado.');
+        });
+
+        it("should return 404 when try to get a nonexistent user", async () => {
+            const response = await request(app)
+                .get('/users/1123212312')
+                .set('Authorization', `Bearer ${User.generateToken('2')}`);
+
+            expect(response.status).toBe(404);
+            expect(response.body.error).toBe('Resultado não encontrado.');
+        });
+
+        it("should return 404 when try to access a nonexistent route", async () => {
+            const response = await request(app)
+                .get('/users/2/rooms')
                 .set('Authorization', `Bearer ${User.generateToken('2')}`);
 
             expect(response.status).toBe(404);

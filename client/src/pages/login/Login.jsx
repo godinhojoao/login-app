@@ -24,7 +24,7 @@ function Login() {
     try {
       await handleLogin({ ...values, alert });
     } catch (error) {
-      alert.error("Servidor desligado!");
+      alert.error(error.message);
       console.log(error);
     }
   }

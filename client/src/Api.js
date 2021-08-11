@@ -66,4 +66,4 @@ class UsersApi {
 
 const Api = new UsersApi();
 
-export { Api, server };
+export { Api };

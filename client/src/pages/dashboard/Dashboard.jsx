@@ -24,9 +24,13 @@ function Dashboard() {
           alert.error('Algum erro ocorreu, faça login novamente.');
         }
 
-        setUsers(res);
+        setUsers(res.users);
+      })
+      .catch(error => {
+        alert.error('Algum erro ocorreu, faça login novamente.');
+        console.log(error);
       });
-  }, [alert]);
+  }, []);
 
   return (
     <div className="content-container">

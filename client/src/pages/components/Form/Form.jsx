@@ -9,8 +9,16 @@ import './Form.scss';
 
 function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
   const iconsManager = new IconsManager();
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    password: { value: false },
+    confirmPassword: { value: false }
+  });
   const fields = Object.keys(valuesObj.initialValues);
+
+  function hideAndShowPasswords(field) {
+    showPassword[field].value = !showPassword[field].value;
+    setShowPassword({ ...showPassword });
+  }
 
   return (
     <>
@@ -48,7 +56,7 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
                         autoComplete={loginForm ? 'on' : 'off'}
                         type={
                           valuesObj.inputTypes[field] === 'password' ?
-                            showPassword ? 'text' : 'password'
+                            showPassword[field].value ? 'text' : 'password'
                             :
                             'text'
                         }
@@ -58,8 +66,9 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
                         <span className="login-container__input-container__error">{errors[field]}</span>
                       }
                       {valuesObj.inputTypes[field] === 'password' &&
-                        <span onClick={() => setShowPassword(!showPassword)}>
-                          {showPassword ?
+                        <span onClick={() => { hideAndShowPasswords(field); }
+                        } >
+                          {showPassword[field].value ?
                             <iconsManager.VisibilityOnIcon />
                             :
                             <iconsManager.VisibilityOffIcon />

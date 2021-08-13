@@ -40,15 +40,18 @@ function Register() {
     initialValues: {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      confirmPassword: ''
     },
     labels: {
       name: 'Nome',
       email: 'Email',
-      password: 'Senha'
+      password: 'Senha',
+      confirmPassword: 'Confirme a senha'
     },
     inputTypes: {
-      password: "password"
+      password: "password",
+      confirmPassword: "password"
     }
   }
 

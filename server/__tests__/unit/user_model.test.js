@@ -8,7 +8,8 @@ describe('User', () => {
       const user = await User.create({
         name: "joaozaobrabo",
         email: "joaozaobrabo@gmail.com",
-        password: "123456"
+        password: "123456",
+        confirmPassword: "123456"
       });
 
       await User.delete(user[0].id);

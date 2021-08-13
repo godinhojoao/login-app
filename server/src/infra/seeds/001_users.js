@@ -5,9 +5,21 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('users').insert([
-        { name: 'joao', email: 'joao@gmail.com', password: '$2b$10$XfwUEsqoUK4tU9pDKY570u4KmyJDcNVF1coPxqgXIF3coubEvmR2W' },
-        { name: 'jorge', email: 'joao@outlook.com.br', password: '$2b$10$XfwUEsqoUK4tU9pDKY570u4KmyJDcNVF1coPxqgXIF3coubEvmR2W' },
-        { name: 'claudio', email: 'claudio@hotmail.com', password: '$2b$10$XfwUEsqoUK4tU9pDKY570u4KmyJDcNVF1coPxqgXIF3coubEvmR2W' }
+        {
+          name: 'joao',
+          email: 'joao@gmail.com',
+          password: '$2b$10$XfwUEsqoUK4tU9pDKY570u4KmyJDcNVF1coPxqgXIF3coubEvmR2W'
+        },
+        {
+          name: 'jorge',
+          email: 'joao@outlook.com.br',
+          password: '$2b$10$XfwUEsqoUK4tU9pDKY570u4KmyJDcNVF1coPxqgXIF3coubEvmR2W'
+        },
+        {
+          name: 'claudio',
+          email: 'claudio@hotmail.com',
+          password: '$2b$10$XfwUEsqoUK4tU9pDKY570u4KmyJDcNVF1coPxqgXIF3coubEvmR2W'
+        }
       ]);
     });
 };

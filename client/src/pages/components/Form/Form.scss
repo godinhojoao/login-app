@@ -22,6 +22,7 @@
     height: px-to-rem(45);
     min-width: px-to-rem(250);
     padding: px-to-rem(16) px-to-rem(8);
+    padding-right: px-to-rem(32);
 
     &.error {
       border: 1px solid map-get($colors, 'dark-red');
@@ -35,6 +36,7 @@
   &__input-container {
     display: flex;
     flex-direction: column;
+    margin-bottom: px-to-rem(5);
     min-height: px-to-rem(75);
     position: relative;
 
@@ -46,6 +48,8 @@
     &__error {
       color: map-get($colors, 'light-red');
       font-size: px-to-rem(12);
+      margin-left: px-to-rem(4);
+      margin-top: px-to-rem(2);
     }
 
     &.password-container {

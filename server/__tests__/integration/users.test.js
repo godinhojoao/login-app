@@ -29,7 +29,8 @@ describe('users', () => {
             const query = {
                 "name": "jorginhoa",
                 "email": "opa@gmail.com",
-                "password": "12354q"
+                "password": "12354q",
+                "confirmPassword": "12354q"
             };
             const response = await request(app)
                 .post('/users')
@@ -117,7 +118,8 @@ describe('users', () => {
             const query = {
                 "name": "jorginhoa",
                 "email": "123",
-                "password": "12354q"
+                "password": "12354q",
+                "confirmPassword": "12354q",
             };
             const response = await request(app)
                 .post('/users')
@@ -126,6 +128,22 @@ describe('users', () => {
 
             expect(response.status).toBe(400);
             expect(response.body.error).toBe('Formato de e-mail inválido.');
+        });
+
+        it("shouldn't create a user / should return error because the different keys: password and confirmPassword", async () => {
+            const query = {
+                "name": "jorginhoa",
+                "email": "claudiaoao@gmail.com",
+                "password": "12354q",
+                "confirmPassword": "12354aaaaaaaa"
+            };
+            const response = await request(app)
+                .post('/users')
+                .set('Content-type', 'application/json')
+                .send(query);
+
+            expect(response.status).toBe(400);
+            expect(response.body.error).toBe('Ambas as senhas devem ser iguais.');
         });
 
         it("shouldn't find a user / should return 404 because the invalid: req.params.id", async () => {
@@ -232,11 +250,12 @@ describe('users', () => {
             expect(response.body.error).toBe("Invalid token.");
         });
 
-        it('should not create a user with duplicated key: email', async () => {
+        it("shouldn't create a user with duplicated key: email", async () => {
             const query = {
                 "name": "jooaoaoo",
+                "email": "joao@gmail.com",
                 "password": "123455",
-                "email": "joao@gmail.com"
+                "confirmPassword": "123455"
             }
             const response = await request(app)
                 .post('/users')

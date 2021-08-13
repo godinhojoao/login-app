@@ -41,9 +41,11 @@ class User {
     };
 
     async create(userValue) {
-        const { name, email, password } = userValue;
-        const validatedUser = userSchema.validate({ name, email, password });
+        const { name, email, password, confirmPassword } = userValue;
+        const validatedUser = userSchema.validate({ name, email, password, confirmPassword });
         validatedUser.value.password = await bcrypt.hash(validatedUser.value.password, 10);
+
+        delete validatedUser.value.confirmPassword;
 
         if (validatedUser.error) {
             throw createHttpError(400, validatedUser.error.message);

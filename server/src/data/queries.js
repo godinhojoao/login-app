@@ -10,7 +10,11 @@ module.exports = (tableName) => {
 
         async getAll() {
             try {
-                const allResults = await knex.select().from(this.tableName).orderBy('id');
+                const allResults = await knex
+                    .select(['id', 'name', 'email'])
+                    .from(this.tableName)
+                    .orderBy('name');
+
                 return allResults;
             } catch (err) {
                 throw err;
@@ -19,8 +23,13 @@ module.exports = (tableName) => {
 
         async findOne(options) {
             try {
-                const result = await knex.select().from(this.tableName).where('id', options.id);
+                const result = await knex
+                    .select(['id', 'name', 'email'])
+                    .from(this.tableName)
+                    .where('id', options.id);
+
                 if (result.length < 1) throw createError(404, 'Resultado não encontrado.');
+
                 return result;
             } catch (err) {
                 throw err;
@@ -29,8 +38,13 @@ module.exports = (tableName) => {
 
         async findByEmail(options) {
             try {
-                const result = await knex.select().from(this.tableName).where('email', options.email);
+                const result = await knex
+                    .select(['id', 'name', 'email', 'password'])
+                    .from(this.tableName)
+                    .where('email', options.email);
+
                 if (result.length < 1) throw createError(401, "Email ou senha incorretos.");
+
                 return result;
             } catch (err) {
                 throw err;
@@ -39,7 +53,10 @@ module.exports = (tableName) => {
 
         async create(options) {
             try {
-                const newResult = await knex(this.tableName).insert(options.value).returning('*');
+                const newResult = await knex(this.tableName)
+                    .insert(options.value)
+                    .returning(['id', 'name', 'email']);
+
                 return newResult;
             } catch (err) {
                 throw err;
@@ -51,7 +68,8 @@ module.exports = (tableName) => {
                 const updatedResult = await knex(this.tableName)
                     .where('id', options.id)
                     .update(options.value)
-                    .returning('*');
+                    .returning(['id', 'name', 'email']);
+
                 return updatedResult;
             } catch (err) {
                 throw err;

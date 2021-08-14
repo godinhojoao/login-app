@@ -5,27 +5,56 @@ const User = require('../../src/app/Users/models/User');
 
 describe('users', () => {
 
-    describe('success calls', () => {
-        it('should return the expected users list', async () => {
+    describe('USERS ROUTES success calls', () => {
+        it('should be able to access PRIVATE *GET /users* when authenticated', async () => {
             const response = await request(app)
                 .get('/users')
                 .set('Authorization', `Bearer ${User.generateToken('1')}`);
 
             expect(response.status).toBe(200);
-            expect(response.body.users[0].name).toBe('joao');
-            expect(response.body.users.length).toBe(3);
+            expect(response.body.users).toEqual([
+                { id: 3, name: 'claudio', email: 'claudio@hotmail.com' },
+                { id: 1, name: 'joao', email: 'joao@gmail.com' },
+                { id: 2, name: 'jorge', email: 'joao@outlook.com.br' }
+            ]);
         });
 
-        it('should return the expected user', async () => {
+        it('should be able to access PRIVATE *GET /users/:id* with your own token', async () => {
             const response = await request(app)
                 .get('/users/1')
                 .set('Authorization', `Bearer ${User.generateToken('1')}`);
 
             expect(response.status).toBe(200);
-            expect(response.body.user.name).toBe('joao');
+            expect(response.body.user).toEqual({
+                id: 1,
+                name: 'joao',
+                email: 'joao@gmail.com'
+            });
         });
 
-        it('should create a user', async () => {
+        it('should be able to access PRIVATE *PUT /users/:id* with your own token', async () => {
+            const response = await request(app)
+                .put(`/users/1`)
+                .set('Authorization', `Bearer ${User.generateToken('1')}`)
+                .send({ name: "alfabeto foda" });
+
+            expect(response.status).toBe(200);
+            expect(response.body.updatedUser).toEqual({
+                id: 1,
+                name: 'alfabeto foda',
+                email: 'joao@gmail.com'
+            });
+        });
+
+        it('should be able to access PRIVATE *DELETE /users/:id* with your own token', async () => {
+            const response = await request(app)
+                .delete('/users/2')
+                .set('Authorization', `Bearer ${User.generateToken('2')}`);
+
+            expect(response.status).toBe(204);
+        });
+
+        it('should create an user and return the same', async () => {
             const query = {
                 "name": "jorginhoa",
                 "email": "opa@gmail.com",
@@ -38,37 +67,14 @@ describe('users', () => {
                 .send(query);
 
             expect(response.status).toBe(201);
-            expect(response.body.user.name).toBe('jorginhoa');
-            expect(response.body).toHaveProperty('token');
-        });
-
-        it('should update a user with your own token', async () => {
-            const response = await request(app)
-                .put(`/users/1`)
-                .set('Authorization', `Bearer ${User.generateToken('1')}`)
-                .send({ name: "alfabeto foda" });
-
-            expect(response.status).toBe(200);
-            expect(response.body.updatedUser.name).toBe('alfabeto foda');
-        });
-
-        it('should delete a user with your own token', async () => {
-            const response = await request(app)
-                .delete('/users/2')
-                .set('Authorization', `Bearer ${User.generateToken('2')}`);
-
-            expect(response.status).toBe(204);
-        });
-
-        it("shouldn't return the keys: password, updated_at, created_at", async () => {
-            const response = await request(app)
-                .get('/users/1')
-                .set('Authorization', `Bearer ${User.generateToken('2')}`);
-
-            expect(response.status).toBe(200);
-            expect(response.body.password).toBe(undefined);
-            expect(response.body.created_at).toBe(undefined);
-            expect(response.body.updated_at).toBe(undefined);
+            expect(response.body).toEqual({
+                user: {
+                    id: 5,
+                    name: 'jorginhoa',
+                    email: 'opa@gmail.com',
+                },
+                token: expect.any(String)
+            });
         });
 
         it('should authenticate with valid credentials', async () => {
@@ -82,39 +88,19 @@ describe('users', () => {
                 .send(query);
 
             expect(response.status).toBe(200);
-            expect(response.body.user.name).toBe("claudio");
-        });
-
-        it('should return a jwt token when auhtenticated', async () => {
-            const query = {
-                "email": "opa@gmail.com",
-                "password": "12354q"
-            }
-            const response = await request(app)
-                .post('/users/login')
-                .set('Content-type', 'application/json')
-                .send(query);
-
-            expect(response.status).toBe(200);
-            expect(response.body).toHaveProperty('token');
-        });
-
-        it('should be able to access private routes when authenticated', async () => {
-            const user = await User.create({
-                "name": "claudinho",
-                "email": "claudinho@gmail.com.br",
-                "password": "123321"
+            expect(response.body).toEqual({
+                user: {
+                    id: 3,
+                    name: 'claudio',
+                    email: 'claudio@hotmail.com'
+                },
+                token: expect.any(String)
             });
-            const response = await request(app)
-                .get('/users')
-                .set('Authorization', `Bearer ${User.generateToken(user[0].id)}`);
-
-            expect(response.status).toBe(200);
         });
     });
 
-    describe('error calls', () => {
-        it("shouldn't create a user / should return error because the invalid format key: email", async () => {
+    describe('USERS ROUTES error calls', () => {
+        it("shouldn't create an user / should return error because the invalid format key: email", async () => {
             const query = {
                 "name": "jorginhoa",
                 "email": "123",
@@ -130,7 +116,7 @@ describe('users', () => {
             expect(response.body.error).toBe('Formato de e-mail inválido.');
         });
 
-        it("shouldn't create a user / should return error because the different keys: password and confirmPassword", async () => {
+        it("shouldn't create an user / should return error because the different keys: password and confirmPassword", async () => {
             const query = {
                 "name": "jorginhoa",
                 "email": "claudiaoao@gmail.com",
@@ -146,7 +132,22 @@ describe('users', () => {
             expect(response.body.error).toBe('Ambas as senhas devem ser iguais.');
         });
 
-        it("shouldn't find a user / should return 404 because the invalid: req.params.id", async () => {
+        it("shouldn't create an user with duplicated key: email", async () => {
+            const query = {
+                "name": "jooaoaoo",
+                "email": "joao@gmail.com",
+                "password": "123455",
+                "confirmPassword": "123455"
+            }
+            const response = await request(app)
+                .post('/users')
+                .send(query);
+
+            expect(response.status).toBe(422);
+            expect(response.body.error).toBe("email já existente.");
+        });
+
+        it("shouldn't find an user / should return 404 because the invalid: req.params.id", async () => {
             const response = await request(app)
                 .get('/users/a')
                 .set('Authorization', `Bearer ${User.generateToken('2')}`);
@@ -155,18 +156,9 @@ describe('users', () => {
             expect(response.body.error).toBe('Resultado não encontrado.');
         });
 
-        it("shouldn't update a user / should return 404 because the invalid: req.params.id", async () => {
+        it("shouldn't update an user / should return 404 because the invalid: req.params.id", async () => {
             const response = await request(app)
                 .get('/users/a')
-                .set('Authorization', `Bearer ${User.generateToken('2')}`);
-
-            expect(response.status).toBe(404);
-            expect(response.body.error).toBe('Resultado não encontrado.');
-        });
-
-        it("should return 404 when try to get a nonexistent user", async () => {
-            const response = await request(app)
-                .get('/users/1123212312')
                 .set('Authorization', `Bearer ${User.generateToken('2')}`);
 
             expect(response.status).toBe(404);
@@ -196,12 +188,40 @@ describe('users', () => {
             expect(response.body.error).toBe('Email ou senha incorretos.');
         });
 
-        it("shouldn't be able to access private routes whithout jwt token", async () => {
+        it("shouldn't be able to access PRIVATE *GET /users* without token", async () => {
             const response = await request(app)
                 .get('/users');
 
             expect(response.status).toBe(401);
             expect(response.body.error).toBe('Token not provided.');
+        });
+
+        it("shouldn't be able to access PRIVATE *GET /users/:id* with a token that is not yours", async () => {
+            const response = await request(app)
+                .get('/users/1')
+                .set('Authorization', `Bearer ${User.generateToken('2')}`);
+
+            expect(response.status).toBe(401);
+            expect(response.body.error).toBe('Invalid token.');
+        });
+
+        it("shouldn't be able to access PRIVATE *PUT /users/:id* with a token that is not yours", async () => {
+            const response = await request(app)
+                .put(`/users/1`)
+                .set('Authorization', `Bearer ${User.generateToken('3')}`)
+                .send({ name: "alfabeto foda" });
+
+            expect(response.status).toBe(401);
+            expect(response.body.error).toBe('Invalid token.');
+        });
+
+        it("shouldn't be able to access PRIVATE *DELETE /users/:id* with a token that is not yours", async () => {
+            const response = await request(app)
+                .delete('/users/2')
+                .set('Authorization', `Bearer ${User.generateToken('3')}`);
+
+            expect(response.status).toBe(401);
+            expect(response.body.error).toBe('Invalid token.');
         });
 
         it("shouldn't be able to access private routes with malformatted jwt token", async () => {
@@ -229,40 +249,6 @@ describe('users', () => {
 
             expect(response.status).toBe(401);
             expect(response.body.error).toBe('Token error.');
-        });
-
-        it('should not update a user with a token that is not yours', async () => {
-            const response = await request(app)
-                .put(`/users/3`)
-                .set('Authorization', `Bearer ${User.generateToken('2')}`)
-                .send({ name: "meu deus du ceu" });
-
-            expect(response.status).toBe(401);
-            expect(response.body.error).toBe("Invalid token.");
-        });
-
-        it('should not delete a user with a token that is not yours', async () => {
-            const response = await request(app)
-                .delete('/users/5')
-                .set('Authorization', `Bearer ${User.generateToken('1')}`);
-
-            expect(response.status).toBe(401);
-            expect(response.body.error).toBe("Invalid token.");
-        });
-
-        it("shouldn't create a user with duplicated key: email", async () => {
-            const query = {
-                "name": "jooaoaoo",
-                "email": "joao@gmail.com",
-                "password": "123455",
-                "confirmPassword": "123455"
-            }
-            const response = await request(app)
-                .post('/users')
-                .send(query);
-
-            expect(response.status).toBe(422);
-            expect(response.body.error).toBe("email já existente.");
         });
     });
 });

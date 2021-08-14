@@ -43,6 +43,7 @@ class User {
     async create(userValue) {
         const { name, email, password, confirmPassword } = userValue;
         const validatedUser = userSchema.validate({ name, email, password, confirmPassword });
+
         validatedUser.value.password = await bcrypt.hash(validatedUser.value.password, 10);
 
         delete validatedUser.value.confirmPassword;
@@ -60,9 +61,7 @@ class User {
     };
 
     async update(userValue) {
-        const { name, email, password } = userValue;
-        let { id } = userValue;
-
+        const { id, name, email, password } = userValue;
         const validatedUser = userSchema.validate({ name, email, password });
 
         if (validatedUser.error) {
@@ -82,7 +81,7 @@ class User {
 
         try {
             await db.delete({ id });
-            return;
+            return true;
         } catch (err) {
             throw err;
         }

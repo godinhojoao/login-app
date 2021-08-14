@@ -5,11 +5,6 @@ class UserController {
     async getAll(req, res, next) {
         try {
             const users = await User.getAll();
-            users.forEach(user => {
-                delete user.password;
-                delete user.created_at;
-                delete user.updated_at;
-            });
 
             res.status(200).json({ users });
         } catch (err) {
@@ -19,12 +14,10 @@ class UserController {
 
     async findOne(req, res, next) {
         const id = req.params.id;
+        if (req.userId != id) { return res.status(401).json({ "error": "Invalid token." }) };
 
         try {
             const [user] = await User.findOne(id);
-            delete user.password;
-            delete user.created_at;
-            delete user.updated_at;
 
             res.status(200).json({ user });
         } catch (err) {
@@ -35,9 +28,6 @@ class UserController {
     async create(req, res, next) {
         try {
             const [newUser] = await User.create(req.body);
-            delete newUser.password;
-            delete newUser.created_at;
-            delete newUser.updated_at;
 
             res.status(201).json({
                 user: newUser,
@@ -54,9 +44,6 @@ class UserController {
 
         try {
             const [updatedUser] = await User.update({ id, ...req.body });
-            delete updatedUser.password;
-            delete updatedUser.created_at;
-            delete updatedUser.updated_at;
 
             res.status(200).json({ updatedUser });
         } catch (err) {
@@ -85,8 +72,6 @@ class UserController {
             if (!(await User.checkPassword(user, password))) return res.status(401).json({ "error": "Email ou senha incorretos." });
 
             delete user.password;
-            delete user.created_at;
-            delete user.updated_at;
 
             return res.status(200).json({
                 user,

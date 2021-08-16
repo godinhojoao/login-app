@@ -61,8 +61,14 @@ class User {
     };
 
     async update(userValue) {
-        const { id, name, email, password } = userValue;
-        const validatedUser = userSchema.validate({ name, email, password });
+        const { id, name, email, newPassword, confirmNewPassword } = userValue;
+        const validatedUser = userSchema.validate({ name, email, password: newPassword, confirmPassword: confirmNewPassword });
+
+        if (validatedUser.value.password) {
+            validatedUser.value.password = await bcrypt.hash(validatedUser.value.password, 10);
+        }
+
+        delete validatedUser.value.confirmPassword;
 
         if (validatedUser.error) {
             throw createHttpError(400, validatedUser.error.message);

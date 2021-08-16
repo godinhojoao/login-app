@@ -13,6 +13,7 @@ module.exports = (err, req, res, next) => {
         }
 
         else {
+            console.log(err);
             res.status(500).json({ "error": "Houve um erro no servidor." });
         }
     }

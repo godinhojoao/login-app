@@ -18,7 +18,8 @@ describe('USER MODEL success calls', () => {
     expect(user).toEqual({
       id: 1,
       name: 'joao',
-      email: 'joao@gmail.com'
+      email: 'joao@gmail.com',
+      password: expect.any(String)
     });
   });
 

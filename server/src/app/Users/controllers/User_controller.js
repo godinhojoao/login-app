@@ -18,6 +18,7 @@ class UserController {
 
         try {
             const [user] = await User.findOne(id);
+            delete user.password;
 
             res.status(200).json({ user });
         } catch (err) {
@@ -41,6 +42,20 @@ class UserController {
     async update(req, res, next) {
         const id = req.params.id;
         if (req.userId != id) { return res.status(401).json({ "error": "Invalid token." }) };
+
+        const { password, newPassword, confirmNewPassword } = req.body;
+
+        if (password || newPassword || confirmNewPassword) {
+            if (!password || !newPassword || !confirmNewPassword) {
+                return res.status(422).json({ "error": "É necessário enviar a antiga senha, a nova e a sua confirmação." });
+            }
+
+            const [user] = await User.findOne(id);
+
+            if (!(await User.checkPassword(user, password))) {
+                return res.status(422).json({ "error": "Senha incorreta." })
+            }
+        }
 
         try {
             const [updatedUser] = await User.update({ id, ...req.body });
@@ -69,7 +84,9 @@ class UserController {
         try {
             const [user] = await User.findByEmail(email);
 
-            if (!(await User.checkPassword(user, password))) return res.status(401).json({ "error": "Email ou senha incorretos." });
+            if (!(await User.checkPassword(user, password))) {
+                return res.status(401).json({ "error": "Email ou senha incorretos." });
+            }
 
             delete user.password;
 

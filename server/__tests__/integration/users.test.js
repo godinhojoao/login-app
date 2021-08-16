@@ -46,6 +46,20 @@ describe('users', () => {
             });
         });
 
+        it('should update an user password', async () => {
+            const response = await request(app)
+                .put(`/users/1`)
+                .set('Authorization', `Bearer ${User.generateToken('1')}`)
+                .send({ password: '123456', newPassword: '1234567', confirmNewPassword: '1234567' });
+
+            expect(response.status).toBe(200);
+            expect(response.body.updatedUser).toEqual({
+                id: 1,
+                name: 'alfabeto foda',
+                email: 'joao@gmail.com'
+            });
+        });
+
         it('should be able to access PRIVATE *DELETE /users/:id* with your own token', async () => {
             const response = await request(app)
                 .delete('/users/2')
@@ -163,6 +177,47 @@ describe('users', () => {
 
             expect(response.status).toBe(404);
             expect(response.body.error).toBe('Resultado não encontrado.');
+        });
+
+        it("shouldn't update an user password without: newPassword and confirmPassword", async () => {
+            const response = await request(app)
+                .put(`/users/1`)
+                .set('Authorization', `Bearer ${User.generateToken('1')}`)
+                .send({ password: "alfabeto foda" });
+
+            expect(response.status).toBe(422);
+            expect(response.body.error).toBe('É necessário enviar a antiga senha, a nova e a sua confirmação.');
+        });
+
+        it("shouldn't update an user password without current password", async () => {
+            const response = await request(app)
+                .put(`/users/1`)
+                .set('Authorization', `Bearer ${User.generateToken('1')}`)
+                .send({ newPassword: "daleee", confirmNewPassword: "daleee" });
+
+            expect(response.status).toBe(422);
+            expect(response.body.error).toBe('É necessário enviar a antiga senha, a nova e a sua confirmação.');
+        });
+
+
+        it("shouldn't update an user password with an incorrect current password", async () => {
+            const response = await request(app)
+                .put(`/users/1`)
+                .set('Authorization', `Bearer ${User.generateToken('1')}`)
+                .send({ password:"senhaerrada", newPassword: "1234567", confirmNewPassword: "1234567" });
+
+            expect(response.status).toBe(422);
+            expect(response.body.error).toBe('Senha incorreta.');
+        });
+
+        it("shouldn't update an user password with different newPassword and confirmNewPassword", async () => {
+            const response = await request(app)
+                .put(`/users/1`)
+                .set('Authorization', `Bearer ${User.generateToken('1')}`)
+                .send({ password:"1234567", newPassword: "1234567", confirmNewPassword: "1234569" });
+
+            expect(response.status).toBe(400);
+            expect(response.body.error).toBe('Ambas as senhas devem ser iguais.');
         });
 
         it("should return 404 when try to access a nonexistent route", async () => {

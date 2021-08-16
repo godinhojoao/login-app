@@ -24,7 +24,7 @@ module.exports = (tableName) => {
         async findOne(options) {
             try {
                 const result = await knex
-                    .select(['id', 'name', 'email'])
+                    .select(['id', 'name', 'email', 'password'])
                     .from(this.tableName)
                     .where('id', options.id);
 

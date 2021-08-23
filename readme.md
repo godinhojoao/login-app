@@ -1,3 +1,13 @@
+# Como o site funciona:
+
+## Criando conta: ( podemos perceber as validações funcionando como o esperado )
+
+  <img src="./client/public/images/criarconta.gif">
+
+## Logado em uma conta: ( com edição de perfil e listagem de usuários )
+
+  <img src="./client/public/images/logado.gif">
+
 # Sobre o projeto:
 
 - Basicamente uma aplicação na qual você pode se cadastrar, entrar na sua conta, listar todos usuários, gerenciar sua conta ( editar ) e deslogar. Tudo isso conta com muitas tecnologias e diferentes conceitos.

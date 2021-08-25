@@ -52,6 +52,7 @@ function CustomForm({ schema, onSubmit, valuesObj, loginForm = false }) {
                   return (
                     <div key={index} className={`login-container__input-container ${valuesObj.inputTypes[field] === 'password' ? 'password-container' : ''}`}>
                       <Field
+                        autoFocus={(loginForm && field === 'email') || (!loginForm && field === 'name')}
                         name={field}
                         autoComplete={loginForm ? 'on' : 'off'}
                         type={

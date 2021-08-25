@@ -1,0 +1,67 @@
+@import "./../../../styles/utilities";
+@import "./../../../styles/settings.variables";
+
+.card {
+  &__item {
+    align-items: center;
+    display: flex;
+    font-size: px-to-rem(18);
+    font-weight: 500;
+    justify-content: space-between;
+    padding: px-to-rem(16) px-to-rem(22);
+
+    .blocked-icon {
+      svg {
+        fill: map-get($colors, "dark-red");
+      }
+    }
+
+    .actived-icon {
+      svg {
+        fill: #006d00;
+      }
+    }
+
+    &__label {
+      color: black;
+      text-transform: capitalize;
+    }
+
+    &__info {
+      border: 1px solid map-get($colors, "border");
+      border-radius: px-to-rem(5);
+      padding: px-to-rem(6) px-to-rem(2);
+      text-align: center;
+    }
+
+    &:not(:last-child) {
+      border-bottom: thin solid map-get($colors, "border");
+    }
+  }
+
+  .edit-container {
+    align-items: center;
+    display: flex;
+    user-select: none;
+
+    .blocked-text {
+      color: map-get($colors, "dark-red");
+    }
+
+    .activated-text {
+      color: #006d00;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      .blocked-text {
+        color: lighten(map-get($colors, "dark-red"), 10%);
+      }
+
+      .activated-text {
+        color: lighten(#006d00, 10%);
+      }
+    }
+  }
+}

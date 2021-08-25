@@ -1,12 +1,18 @@
 # Como o site funciona:
 
-## Criando conta: ( podemos perceber as validações funcionando como o esperado )
+**Um pouco do que você vai perceber: validações no front e no back-end para todas as telas**
 
-  <img src="./client/public/images/criarconta.gif">
+## Criando conta:
 
-## Logado em uma conta: ( com edição de perfil e listagem de usuários )
+  <img src="./client/public/images/criar-conta.gif">
 
-  <img src="./client/public/images/logado.gif">
+## Logando em uma conta:
+
+  <img src="./client/public/images/logando.gif">
+
+## Editando uma conta:
+
+  <img src="./client/public/images/editando.gif">
 
 # Sobre o projeto:
 

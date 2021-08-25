@@ -4,7 +4,9 @@ import { List } from './../components/List/List';
 
 function Profile() {
   const user = JSON.parse(localStorage.getItem('user'));
-  user.password = '***********';
+  user.password = ''
+  user.newPassword = ''
+  user.confirmNewPassword = ''
 
   useEffect(() => {
     document.querySelector('.container').classList.remove('auto-height');

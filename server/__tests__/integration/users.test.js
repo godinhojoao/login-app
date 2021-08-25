@@ -146,7 +146,7 @@ describe('users', () => {
             expect(response.body.error).toBe('Ambas as senhas devem ser iguais.');
         });
 
-        it("shouldn't create an user with duplicated key: email", async () => {
+        it("shouldn't create an user with duplicated key: email / should return 422", async () => {
             const query = {
                 "name": "jooaoaoo",
                 "email": "joao@gmail.com",
@@ -161,6 +161,15 @@ describe('users', () => {
             expect(response.body.error).toBe("email já existente.");
         });
 
+        it("shouldn't create an user without user values / should return 422", async () => {
+            const query = {}
+            const response = await request(app)
+                .post('/users')
+                .send(query);
+
+            expect(response.status).toBe(422);
+        });
+
         it("shouldn't find an user / should return 404 because the invalid: req.params.id", async () => {
             const response = await request(app)
                 .get('/users/a')
@@ -172,11 +181,19 @@ describe('users', () => {
 
         it("shouldn't update an user / should return 404 because the invalid: req.params.id", async () => {
             const response = await request(app)
-                .get('/users/a')
+                .put('/users/a')
                 .set('Authorization', `Bearer ${User.generateToken('2')}`);
 
             expect(response.status).toBe(404);
             expect(response.body.error).toBe('Resultado não encontrado.');
+        });
+
+        it("shouldn't update an user / should return 422 because the empty req.body", async () => {
+            const response = await request(app)
+                .put('/users/2')
+                .set('Authorization', `Bearer ${User.generateToken('2')}`);
+
+            expect(response.status).toBe(422);
         });
 
         it("shouldn't update an user password without: newPassword and confirmPassword", async () => {

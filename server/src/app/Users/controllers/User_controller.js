@@ -27,6 +27,8 @@ class UserController {
     };
 
     async create(req, res, next) {
+        if(!Object.keys(req.body).length) { return res.status(422).send()}
+
         try {
             const [newUser] = await User.create(req.body);
 
@@ -42,6 +44,7 @@ class UserController {
     async update(req, res, next) {
         const id = req.params.id;
         if (req.userId != id) { return res.status(401).json({ "error": "Invalid token." }) };
+        if(!Object.keys(req.body).length) { return res.status(422).send()}
 
         const { password, newPassword, confirmNewPassword } = req.body;
 

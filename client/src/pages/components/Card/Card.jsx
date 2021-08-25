@@ -3,15 +3,13 @@ import { useAlert } from "react-alert";
 
 import { Api } from './../../../Api';
 
-import { IconsManager } from './../../../assets/icons/IconsManager';
+import { Item } from './../Item/Item';
 import { Button } from './../Button/Button';
 
 import './Card.scss';
 
 function Card({ user, editProfile = false }) {
   const alert = useAlert();
-  const iconsManager = new IconsManager();
-  const userEntries = Object.entries(user);
   const [isEditable, setIsEditable] = useState({
     name: false,
     email: false,
@@ -20,6 +18,7 @@ function Card({ user, editProfile = false }) {
   const [userUpdatedValues, setUserUpdatedValues] = useState({
     id: user.id
   });
+  const userEntries = Object.entries(user);
 
   function onChangeEditable(event) {
     const path = event.nativeEvent.path;
@@ -74,49 +73,21 @@ function Card({ user, editProfile = false }) {
       <div className="card">
         {
           userEntries.map((entry, index) => {
-            const [key, value] = entry;
+            const [key] = entry;
 
             return (
               <Fragment key={index} >
                 {
                   key !== 'id' &&
-                  <div className={`card__item ${key}`}>
-                    <span className={!isEditable[key] ? 'blocked-icon' : 'actived-icon'} >
-                      {
-                        editProfile ?
-                          (
-                            !isEditable[key] ?
-                              <iconsManager.BlockIcon />
-                              :
-                              <iconsManager.EditIcon measures={{ height: '24px', width: '24px' }} />
-                          )
-                          :
-                          <img src="https://img.icons8.com/material-outlined/24/000000/user--v1.png" alt="Icone perfil" />
-                      }
-                    </span>
-
-                    <span className="card__item__label">{key}</span>
-                    <input
-                      type={`${key === 'password' ? 'password' : 'text'}`}
-                      className="card__item__info"
-                      name={key}
-                      defaultValue={value}
-                      autoComplete="off"
-                      disabled={!isEditable[key]}
-                      onChange={e => { setUserUpdatedValues({ ...userUpdatedValues, [key]: e.target.value }) }} />
-
-                    {
-                      editProfile &&
-                      <div className="edit-container" onClick={onChangeEditable}>
-                        <span className={!isEditable[key] ? 'blocked-text' : 'activated-text'}>
-                          Editar
-                        </span>
-                        <span className={!isEditable[key] ? 'blocked-icon' : 'actived-icon'}>
-                          <iconsManager.EditIcon />
-                        </span>
-                      </div>
-                    }
-                  </div>
+                  <>
+                    <Item
+                      entry={entry}
+                      editProfile={editProfile}
+                      isEditable={isEditable[key]}
+                      userUpdatedValues={userUpdatedValues}
+                      setUserUpdatedValues={setUserUpdatedValues}
+                      onChangeEditable={onChangeEditable} />
+                  </>
                 }
               </Fragment>
             );

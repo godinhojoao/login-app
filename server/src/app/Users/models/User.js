@@ -40,8 +40,8 @@ class User {
         }
     };
 
-    async create(userValue) {
-        const { name, email, password, confirmPassword } = userValue;
+    async create(userValues) {
+        const { name, email, password, confirmPassword } = userValues;
         const validatedUser = userSchema.validate({ name, email, password, confirmPassword });
 
         validatedUser.value.password = await bcrypt.hash(validatedUser.value.password, 10);
@@ -60,8 +60,8 @@ class User {
         }
     };
 
-    async update(userValue) {
-        const { id, name, email, newPassword, confirmNewPassword } = userValue;
+    async update(userValues) {
+        const { id, name, email, newPassword, confirmNewPassword } = userValues;
         const validatedUser = userSchema.validate({ name, email, password: newPassword, confirmPassword: confirmNewPassword });
 
         if (validatedUser.value.password) {
